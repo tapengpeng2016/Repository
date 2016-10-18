@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Xml.Linq;
+
+public partial class Inscription : System.Web.UI.Page
+{
+   
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+       
+
+        DDL_PAYS.DataSource = Pays();
+        DDL_PAYS.DataBind();
+        DDL_PAYS.Items.Insert(0, "Séléctionner un pays");
+        
+    }
+   
+
+        protected void BTN_INSCRIRE_Click(object sender, EventArgs e)
+    {
+        
+    }
+
+    protected void BT_SUBMIT_Click(object sender, EventArgs e)
+    {
+        Personne newPersonne = new Personne();
+        newPersonne.Id_personne = 0;
+        newPersonne.civilite = DDL_CIVILITE.SelectedValue;
+        
+        newPersonne.nom = TXTB_NOM.Text;
+        newPersonne.prenom = TXTB_PRENOM.Text;
+     
+
+        User newUser = new User();
+        newUser.Id_user = 0;
+        newUser.Id_personne = 0;
+        newUser.Id_acces = 1;
+        newUser.Id_statut = 0;
+        newUser.email = TXTB_MAIL.Text.ToString();
+        newUser.mdp = DateTime.Now.Ticks.ToString();
+        newUser.tel = TXTB_TEL.Text;
+        
+      Adresse newAdresse = new Adresse();
+      newAdresse.Id_adresse = 0;
+      newAdresse.Id_personne = 0;
+      newAdresse.adresse = TXTB_ADRESSE.Text;
+      newAdresse.adresse_complement = TXTB_ACOMPLEMENT.Text;
+      newAdresse.code_postal = TXTB_CP.Text;
+      newAdresse.ville = TXTB_VILLE.Text;
+      newAdresse.pays = DDL_PAYS.SelectedValue;
+    
+     int knownUser=newUser.KnownUser(newUser);
+
+
+        if (knownUser!=0) {
+            Label1.Text = "Ce user existe déjà, veuillez réessayer!";
+           
+        }else
+        {
+            int id = newPersonne.enregistrerPersonne(newPersonne);
+            newUser.EnregistrerInscription(newUser);
+            newAdresse.EnregistrerInscription(newAdresse);
+            Response.Redirect("Inscription_reussi.aspx");
+           
+           
+        }
+    }
+    public List<string> Pays()
+    {
+        List<string> ListePays = new List<string>();
+        foreach (CultureInfo infos in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+        {
+            RegionInfo region = new RegionInfo(infos.LCID);
+            if (!ListePays.Contains(region.DisplayName))
+            {
+                ListePays.Add(region.DisplayName);
+                ListePays.Sort();
+            }
+
+        }
+        return ListePays;
+    }
+   
+}

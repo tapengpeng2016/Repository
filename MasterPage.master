@@ -1,0 +1,61 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@Register src="menu.ascx" TagName="menu" TagPrefix="uc1" %>
+<!DOCTYPE html>
+<style>
+    #ContentPlaceHolder2{
+        float:right;
+    }
+
+    body{
+        
+        margin-left:25%;
+        margin-right:25%;
+        margin-top:30px;
+        background-image:url('../images/book.jpg');
+        text-align:center;
+    }
+   
+    
+    .button{
+        float:right;
+        border:2px solid darkslateblue;
+        border-radius: 3px 6px;
+        
+        background-color:darkslateblue;
+        color: white;
+    }
+    .partie1{
+        width:100%;
+        
+    }
+</style>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+     <uc1:menu ID="Menu1" runat="server" />
+    <div class="partie1">
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            
+        </asp:ContentPlaceHolder>
+       
+        
+       
+    </div>
+    <div class="partie2">
+            <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+            
+            </asp:ContentPlaceHolder>
+    </div>
+    <div class="partie3">
+        <asp:ContentPlaceHolder id="ContentPlaceHolder3" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

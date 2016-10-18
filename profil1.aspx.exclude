@@ -1,0 +1,135 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageNormale.master" AutoEventWireup="true" CodeFile="profil1.aspx.cs" Inherits="profil1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
+
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" Runat="Server">   
+   
+     <asp:Label runat="server"> <div>FORMULAIRE D'INSCRIPTION</div></asp:Label>
+        <hr />
+    <div CssClass="table">
+       <asp:Table ID="Table1" runat="server" Width="752px" CssClass="table">
+            <asp:TableRow>
+                <asp:TableCell>Civilité: </asp:TableCell>
+                <asp:TableCell>                        
+                    <asp:Label runat="server" ID="LB_CIVILITE" Text=""></asp:Label>
+                
+                </asp:TableCell>
+
+                <asp:TableCell> </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Nom:*</asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label runat="server" ID="LB_NOM" Text=""></asp:Label>
+                   
+                
+                        </asp:TableCell></asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Prénom:* </asp:TableCell>
+                <asp:TableCell> 
+                    <asp:Label runat="server" ID="LB_PRENOM" Text=""></asp:Label>
+                  
+                </asp:TableCell>
+                 <asp:TableCell> </asp:TableCell>
+             </asp:TableRow>
+
+            <asp:TableRow>
+               <asp:TableCell>Téléphone:</asp:TableCell>
+                 <asp:TableCell>
+                  <asp:Label runat="server" ID="LB_TEL" Text=""></asp:Label>   
+                </asp:TableCell>
+                 <asp:TableCell>
+                    
+                </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Adresse: </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label runat="server" ID="LB_ADRESSE" Text=""></asp:Label>
+                
+                    </asp:TableCell>
+                <asp:TableCell> </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Adresse complément:</asp:TableCell>
+                <asp:TableCell>
+                 <asp:Label runat="server" ID="LB_ACOMPLEMENT" Text=""></asp:Label>   
+
+                
+</asp:TableCell>
+                <asp:TableCell> </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Code postal:</asp:TableCell>
+                <asp:TableCell>
+                   <asp:Label runat="server" ID="LB_CP" Text=""></asp:Label> 
+                
+</asp:TableCell>
+                <asp:TableCell>
+                    
+                
+</asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Ville:</asp:TableCell>
+                <asp:TableCell>
+                   <asp:Label runat="server" ID="LB_VILLE" Text=""></asp:Label>
+                
+</asp:TableCell>
+                <asp:TableCell> </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>Pays:</asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label runat="server" ID="LB_PAYS" Text=""></asp:Label>
+
+                
+</asp:TableCell>
+                <asp:TableCell> </asp:TableCell>
+            </asp:TableRow>
+
+            <asp:TableRow>
+                <asp:TableCell>E-mail:*</asp:TableCell>
+                <asp:TableCell>
+                  <asp:Label runat="server" ID="LB_MAIL" Text=""></asp:Label>  
+                
+</asp:TableCell>
+                <asp:TableCell>
+                   
+                    
+
+                    <br />
+                    
+                
+</asp:TableCell>
+            </asp:TableRow>
+
+                      
+             <asp:TableRow>
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button ID="BT_MODIF" runat="server" Text="MODIFIER" />
+ 
+                </asp:TableCell>
+                <asp:TableCell>
+                    </asp:TableCell>
+            </asp:TableRow>
+ 
+        </asp:Table>
+        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+		</div>
+        
+   </asp:Content>

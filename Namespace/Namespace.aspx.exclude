@@ -1,0 +1,52 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ValidationFormulaire.aspx.cs" Inherits="WebForm8" %>
+<html>
+    <head></head>
+    <body>
+     <center>
+
+    <form id="form1" runat="server">
+    <div>
+
+        <br />
+        Utilisation d&#39;un validateur de comparaison entre le texte saisi par l&#39;utilisateur et une constante (le prénom)<br />
+        <br />
+
+        <asp:TextBox ID="TextBox1" runat="server" Width="153px">Entrez votre prénom (Eric)</asp:TextBox>
+        <br />
+        <br />
+        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="CompareValidator"></asp:CompareValidator>
+         <br />
+        <br />
+        Utilisation d&#39;une validateur de champ requis pour vérifier la sélection dans une liste à choix unique<br />
+        <br />
+        
+        <asp:RadioButtonList ID="RadioButtonList1" runat="server">
+            <asp:ListItem Value="F">Féminin</asp:ListItem>
+            <asp:ListItem Value="M">Masculin</asp:ListItem>
+        </asp:RadioButtonList>
+        <br />
+        
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
+
+        <br />
+        <br />
+        Utilisation de 2 validateurs (champ requis et validateur de plage de données)<br />
+        <br />
+        <asp:TextBox ID="TextBox2" runat="server" Width="63px">âge</asp:TextBox>
+        <br />
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
+        <br />
+        <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="RangeValidator"></asp:RangeValidator>
+        <br />
+        <br />&nbsp;<asp:Label ID="Label1" runat="server"></asp:Label>
+        <br />
+        <br />
+        <asp:Button ID="Button1" runat="server" Text="Button"></asp:Button>
+        <br />
+    
+    </div>
+    </form>
+    </center>
+</body>
+</html>
+
