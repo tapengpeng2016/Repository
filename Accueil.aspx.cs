@@ -17,7 +17,7 @@ public partial class Accueil : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            User u = new User();
+            Usager u = new Usager();
             u.RemplirGrid("SELECT * From [Article],[Format_article],[Genre] WHERE (Id_Article In (SELECT Id_Article From [Exemplaire] WHERE Id_Emprunt=0)) AND([Article].Id_Format=[Format_article].Id_Format) AND ([Article].Id_Genre=[Genre].Id_Genre);",GridView1);
           
             //DataTable dt =
@@ -44,7 +44,7 @@ public partial class Accueil : System.Web.UI.Page
     protected void DDL_FORMAT_SelectedIndexChanged(object sender, EventArgs e)
     {
        // Label6.Text = DDL_FORMAT.SelectedIndex.ToString();
-        User u = new User();
+        Usager u = new Usager();
         id_format = Convert.ToInt32(DDL_FORMAT.SelectedValue);
         id_genre = Convert.ToInt32(DDL_GENRE.SelectedValue);
         if (id_format == 1&& id_genre == 0)
@@ -69,7 +69,7 @@ public partial class Accueil : System.Web.UI.Page
 
     protected void DDL_GENRE_SelectedIndexChanged(object sender, EventArgs e)
     {
-        User u = new User();
+        Usager u = new Usager();
 
         id_format = Convert.ToInt32(DDL_FORMAT.SelectedValue);
         id_genre = Convert.ToInt32(DDL_GENRE.SelectedValue);
