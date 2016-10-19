@@ -16,8 +16,7 @@ using System.Web.UI.WebControls;
 public class User 
 {
     public int Id_user;//=Id_Usager
-    public int Id_acces;
-    public int Id_statut;
+    public int acces;
     public string nom;
     public string prenom;
     public DateTime dateNaissance;
@@ -66,7 +65,7 @@ public class User
         //Insérer les infos dans [User]
         cnx.Open();
              string sql1 = @"INSERT INTO [User](Id_User,Id_Personne,Id_Acces,Id_Statut,email,mdp,tel) 
-                                VALUES('" + id_user + "','"+id_personne+"','" +u.Id_acces+"','"+u.Id_statut+ "','" + u.email + "', '" + u.mdp + "')";
+                                VALUES('" + id_user + "','"+id_personne+"','" + u.email + "', '" + u.mdp + "')";
             SqlCommand cmd1 = new SqlCommand(sql1, cnx);
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
@@ -134,7 +133,7 @@ public class User
         cnx = new SqlConnection(str);
         DataTable dt = new DataTable();
         cnx.Open();
-        string sql0 = "SELECT Id_Usager [dbo].[Usager] WHERE identifiant=@email AND mdp=@mdp";
+        string sql0 = "SELECT Id_Usager FROM [dbo].[Usager] WHERE identifiant=@email AND mdp=@mdp";
         SqlCommand cmd0 = new SqlCommand(sql0, cnx);
         cmd0.CommandType = CommandType.Text;
         cmd0.Parameters.AddWithValue("@email", email);
@@ -289,12 +288,25 @@ public class User
     #endregion
 
     #region ConsulterEmprunt
-    public void ConsulterEmprunt()
+  
+    public void ConsulterEmprunt(int id,GridView g)
     {
-        //usager
-        //admin
+      string req = @"SELECT * FROM[Article],[Format_article],[Genre],[Exemplaire],[Emprunt]
+                WHERE[Emprunt].Id_Usager=@id AND([Article].Id_Format=[Format_article].Id_Format) AND([Article].Id_Genre=[Genre].Id_Genre) AND([Exemplaire].Id_Emprunt=[Emprunt].Id_Emprunt) AND([Exemplaire].Id_Article=[Article].Id_Article) AND[Exemplaire].Id_Exemplaire=[Emprunt].Id_Exemplaire;";
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        cmd_1 = new SqlCommand(req, cnx);
+        cmd_1.CommandType = CommandType.Text;
+        cmd_1.Parameters.AddWithValue("@id", id);
+        dr = cmd_1.ExecuteReader();
+        dt = new DataTable();
+        dt.Load(dr);
+        g.DataSource = dt;
+        g.DataBind();
+        cnx.Close();
     }
     #endregion
+  
 
     #region Emprunter pour usagers
     public void Emprunter()

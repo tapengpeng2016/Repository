@@ -16,25 +16,16 @@ public partial class Session : System.Web.UI.Page
     {
         
         User u = new User();
-        u.Id_user = 0;
-     
-        u.Id_acces = 1;
-        u.Id_statut = 0;
-      
+        u.Id_user = 0;   
         u.email = TXTB_LOGIN.Text.ToString();
         u.mdp = TXTB_MDP.Text.ToString();
 
         int user_verif = u.KnownUser(u.email, u.mdp);
-        /* DataTable dt = u.selectionProfil(u.email, u.mdp);
-         Session["User"] = dt;
-         */
         DataTable dt = u.selectionProfil(u.email, u.mdp);
         Session["User"] = dt;
         if (user_verif==0)
         {
-            LB_MSG.Text = "Vous n'êtes pas reconnu par le système";
-            Response.Redirect("Connexion.aspx");
-            
+            LB_MSG.Text = "Vous n'êtes pas reconnu par le système";         
         } else {
            
                Response.Redirect("Espace_Usager.aspx");         
