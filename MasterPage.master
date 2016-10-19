@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-<%@Register src="menu.ascx" TagName="menu" TagPrefix="uc1" %>
+
 <!DOCTYPE html>
 <style>
     #ContentPlaceHolder2{
@@ -41,7 +41,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-     <uc1:menu ID="Menu1" runat="server" />
+
     <div class="partie1">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
             

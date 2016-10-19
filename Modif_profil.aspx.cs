@@ -20,7 +20,7 @@ public partial class Modif_profil : System.Web.UI.Page
         if (!IsPostBack)
         {
 
-            DataTable dt = (DataTable)Session["User"];
+            DataTable dt = (DataTable)Session["Usager"];
 
             //on vérifie que la session existe toujours avant d'afficher la page profil
             if (dt == null)
@@ -35,7 +35,7 @@ public partial class Modif_profil : System.Web.UI.Page
     {
        
       
-        DataTable dt = (DataTable)Session["User"];
+        DataTable dt = (DataTable)Session["Usager"];
         DataRow[] resultUser = dt.Select();//on crée un tableau datarow où on met dt
 
             foreach (DataRow row in resultUser)
@@ -77,7 +77,7 @@ public partial class Modif_profil : System.Web.UI.Page
         if (!IsPostBack)
         {
             base.OnInitComplete(e);
-            DataTable dt = (DataTable)Session["User"];
+            DataTable dt = (DataTable)Session["Usager"];
             if (dt == null)
             {
                 Response.Redirect("session.aspx");
@@ -88,7 +88,7 @@ public partial class Modif_profil : System.Web.UI.Page
     {
         //est-ce qu'on peut récupérer id_Personne?
       
-        DataTable dt = (DataTable)Session["User"];
+        DataTable dt = (DataTable)Session["Usager"];
 
         //on vérifie que la session existe toujours avant d'afficher la page profil
         if (dt == null)
@@ -98,12 +98,8 @@ public partial class Modif_profil : System.Web.UI.Page
         else
         {
 
-            Personne p = new Personne();
-            p.civilite = DDL_CIVILITE.SelectedItem.Text;
-            p.nom = TXTB_NOM.Text;
-            p.prenom = TXTB_PRENOM.Text;
-            
-            User u = new User();
+          
+            Usager u = new Usager();
       
             u.email = TXTB_MAIL.Text;
             u.mdp = TXTB_MDP1.Text;
@@ -115,10 +111,10 @@ public partial class Modif_profil : System.Web.UI.Page
             a.ville = TXTB_VILLE.Text;
             a.pays = DDL_PAYS.SelectedItem.Text;
 
-            u.ModifProfil(p, u, a);
+            u.ModifProfil(u, a);
 
             DataTable newdt = u.selectionProfil(u.email, u.mdp);
-            Session["User"] = newdt;
+            Session["Usager"] = newdt;
             Session["UserBack"] = newdt;
             Label1.Text = "La modification a bien été effectuée...";
 
@@ -202,22 +198,14 @@ public partial class Modif_profil : System.Web.UI.Page
             // Notify the user that a file was not uploaded.
             //UploadStatusLabel.Text = "You did not specify a file to upload.";
         }
-       
-    
 
-        User u = new User();
+
+
+
+        Usager u = new Usager();
         u.email = TXTB_MAIL.Text;
         
-        Image img = new Image();
-        img.Id_Personne = 0;
-        img.Id_image = 0;
-        img.description_image = "";
-        img.chemin_image = savePath;
-        img.nom_image = fileName;
-        //ajouter info image dans BDD
-        img.AjouterImage(img,u);
-        //display image
-        IMGBT.ImageUrl = "../images/" + fileName;
+       
         }
 }
 

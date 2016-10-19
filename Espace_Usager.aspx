@@ -6,6 +6,11 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <style type="text/css">
+        .table {
+            margin-left: 0px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -87,7 +92,90 @@
             </asp:GridView>
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-
+        </asp:Panel>
+        <asp:Panel ID="PL_PROFIL" runat="server">
+             <asp:Table ID="Table1" runat="server" Width="905px" CssClass="table">
+              <asp:TableRow>
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:TextBox ID="TXTB_MDP1" Visible="false" CssClass="tbox" runat="server"></asp:TextBox>                
+                </asp:TableCell>
+                <asp:TableCell>         
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow>
+                <asp:TableCell>Civilité: </asp:TableCell>
+                <asp:TableCell>                        
+               <asp:DropDownList ID="DDL_CIVILITE" CssClass="tbox" runat="server">
+                        <asp:ListItem Text="monsieur" Value="Monsieur">Monsieur</asp:ListItem>
+                        <asp:ListItem Text="madame" Value="Madame">Madame</asp:ListItem>
+               </asp:DropDownList>
+               </asp:TableCell>
+               <asp:TableCell> </asp:TableCell>
+           </asp:TableRow>
+           <asp:TableRow>
+               <asp:TableCell>Nom:*</asp:TableCell>
+               <asp:TableCell>
+                    <asp:TextBox ID="TXTB_NOM" CssClass="tbox txtbNom" Enabled="true" Text="" OnTextChanged="TXTB_NOM_TextChanged"  runat="server"></asp:TextBox>
+               </asp:TableCell>
+               <asp:TableCell> <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="inscription" runat="server" ControlToValidate="TXTB_NOM" ErrorMessage="champ obligatoire"></asp:RequiredFieldValidator> 
+               </asp:TableCell>
+          </asp:TableRow>
+          <asp:TableRow>
+                <asp:TableCell>Prénom:* </asp:TableCell>
+                <asp:TableCell> 
+                    <asp:TextBox ID="TXTB_PRENOM" CssClass="tbox txtbPrenom" Enabled="true" runat="server"></asp:TextBox>               
+                </asp:TableCell>
+                <asp:TableCell><asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="inscription" runat="server" ControlToValidate="TXTB_PRENOM" ErrorMessage="champ obligatoire"></asp:RequiredFieldValidator> 
+                </asp:TableCell>     
+         </asp:TableRow>        
+        <asp:TableRow>
+              <asp:TableCell>E-mail:*</asp:TableCell>
+              <asp:TableCell>
+                    <asp:TextBox ID="TXTB_MAIL" CssClass="tbox" ReadOnly="true" runat="server"></asp:TextBox>              
+              </asp:TableCell>
+              <asp:TableCell>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ValidationGroup="inscription" ControlToValidate="TXTB_MAIL" ErrorMessage="champ obligatoire"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ValidationGroup="inscription" ControlToValidate="TXTB_MAIL" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage="Mail erroné"></asp:RegularExpressionValidator>                
+            </asp:TableCell>
+       </asp:TableRow>
+       <asp:TableRow>
+            <asp:TableCell>
+                    <asp:Label ID="LB_MDP" Visible="false" runat="server" Text="Mot de passe actuel:"></asp:Label></asp:TableCell>
+            <asp:TableCell>
+                    <asp:TextBox ID="TXTB_MDP" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>         
+            </asp:TableCell>
+       </asp:TableRow>
+       <asp:TableRow>
+                <asp:TableCell>
+                    <asp:Label ID="LB_NEWMDP1" Visible="false" runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
+                <asp:TableCell>
+                    <asp:TextBox ID="TXTB_NEWMDP1" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
+                </asp:TableCell>
+                <asp:TableCell>                          
+                </asp:TableCell>
+       </asp:TableRow>
+       <asp:TableRow>
+                <asp:TableCell>
+                    <asp:Label ID="LB_NEWMDP2" Visible="false" runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
+                <asp:TableCell>
+                    <asp:TextBox ID="TXTB_NEWMDP2" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
+                </asp:TableCell>
+                <asp:TableCell>                             
+                </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button ID="BT_VALIDER" runat="server" OnClick="BT_VALIDER_Click" ValidationGroup="inscription" Text="VALIDER"/>              
+                </asp:TableCell>
+                <asp:TableCell>
+                </asp:TableCell>
+        </asp:TableRow>
+        </asp:Table>
         </asp:Panel>
       
     </div>

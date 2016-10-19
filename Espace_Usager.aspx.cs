@@ -9,20 +9,20 @@ using System.Web.UI.WebControls;
 public partial class Espace_Usager : System.Web.UI.Page
 {
     string str;
-    string user;
+    string usager;
     protected void Page_Load(object sender, EventArgs e)
     {
-        User u = new User();
-        DataTable dt = (DataTable)Session["User"];
+        Usager u = new Usager();
+        DataTable dt = (DataTable)Session["Usager"];
         DataRow[] dr = dt.Select();
         foreach(DataRow row in dr)
         {
-            user= row["Id_Usager"].ToString();
+            usager= row["Id_Usager"].ToString();
         }
-        u.Id_user = Convert.ToInt32(user);
+        u.Id_usager = Convert.ToInt32(usager);
         //Label5.Text = user;
         PL_EMPRUNT.Visible = false;
-        u.ConsulterEmprunt(u.Id_user,GV_EMPRUNT);  
+        u.ConsulterEmprunt(u.Id_usager,GV_EMPRUNT);  
            
     }
 
@@ -32,7 +32,7 @@ public partial class Espace_Usager : System.Web.UI.Page
     }
     protected override void OnInitComplete(EventArgs e)
     {
-        DataTable dt = (DataTable)Session["User"];
+        DataTable dt = (DataTable)Session["Usager"];
         if (dt == null)
         {
             Response.Redirect("Connexion.aspx");

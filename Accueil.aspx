@@ -35,7 +35,7 @@
             </asp:TableCell>
             <asp:TableCell runat="server">
                 <asp:DropDownList ID="DDL_GENRE" AutoPostBack="true" Width="100px" OnSelectedIndexChanged="DDL_GENRE_SelectedIndexChanged" runat="server">
-                    <asp:ListItem Value="0">Tous sélectionner</asp:ListItem>
+                    <asp:ListItem Value="0">Tous</asp:ListItem>
                     <asp:ListItem Value="1">Science</asp:ListItem>
                     <asp:ListItem Value="2">Mode</asp:ListItem>
                     <asp:ListItem Value="3">BD</asp:ListItem>
