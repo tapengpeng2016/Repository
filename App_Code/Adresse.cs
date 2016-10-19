@@ -10,6 +10,7 @@ using System.Web;
 /// </summary>
 public class Adresse
 {
+    //this is a test
     public int Id_adresse;
     public int Id_personne;
     public string adresse;
