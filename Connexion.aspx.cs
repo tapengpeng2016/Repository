@@ -17,10 +17,10 @@ public partial class Session : System.Web.UI.Page
         
         User u = new User();
         u.Id_user = 0;
-        u.Id_personne = 0;
+     
         u.Id_acces = 1;
         u.Id_statut = 0;
-        u.tel = "";
+      
         u.email = TXTB_LOGIN.Text.ToString();
         u.mdp = TXTB_MDP.Text.ToString();
 

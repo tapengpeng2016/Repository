@@ -1,0 +1,56 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ValidationFormulaire.aspx.cs" Inherits="ValidationFormulaire"%>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+ 
+</head>
+<body style="height: 433px">
+    <center>
+     <form id="form1" runat="server">
+   
+         <div>
+  
+        <asp:TextBox ID="TXTB_NOM" runat="server" OnTextChanged="TXTB_NOM_TextChanged">Entrez votre nom</asp:TextBox>
+        <br />
+        <asp:CompareValidator ID="CV_NOM" runat="server" ErrorMessage="CompareValidator"></asp:CompareValidator>
+             <br />
+             <br />
+             <br />
+        <asp:RadioButtonList ID="RBL_SEXE" runat="server">
+            <asp:ListItem Value="F">Féminin</asp:ListItem>
+            <asp:ListItem Value="M">Masculin</asp:ListItem>
+        </asp:RadioButtonList>
+         <asp:RequiredFieldValidator ID="RFV_SEXE" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
+             <br />
+             <br />
+        <asp:Label ID="LB_NOM" runat="server" Text="Age: "></asp:Label>
+              <asp:TextBox ID="TXTB_AGE" runat="server"></asp:TextBox>
+             <br />
+             
+             <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="RangeValidator"></asp:RangeValidator>
+             <br />
+             <br />
+             <asp:RequiredFieldValidator ID="RFV_AGE" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
+             <br />
+             <br />
+             
+             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+             
+        <br />
+             <br />
+         
+
+             <br />
+            
+             <asp:Button ID="Button1" runat="server"  Text ="Button" />
+    
+    </div>
+      
+    </form>
+      </center>
+</body>
+</html>

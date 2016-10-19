@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+
+public partial class AccueilConnexion : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        DataTable dt = (DataTable)Session["Tous"];
+        if (dt == null)
+        {
+            Response.Redirect("Connexion.aspx");
+        }else
+        {
+            DataRow[] resultUser = dt.Select();//on crée un tableau datarow où on met dt
+
+            foreach (DataRow row in resultUser)
+            {
+                
+                LB_HELLO.Text = "Hello " + row["Prenom"].ToString();
+                HtmlGenericControl li = new HtmlGenericControl("li");
+                tabs.Controls.Add(li);
+
+
+                HtmlGenericControl anchor1 = new HtmlGenericControl("a");
+                anchor1.Attributes.Add("href", "Modifier_Supprimer.aspx");
+                anchor1.InnerText = row["sujet"].ToString();
+                li.Controls.Add(anchor1);
+
+                HtmlGenericControl anchor2 = new HtmlGenericControl("a");
+                anchor2.Attributes.Add("href", "Modifier_Supprimer.aspx");
+                anchor2.InnerText = row["contenu"].ToString();
+                li.Controls.Add(anchor2);
+
+
+              /*  HtmlGenericControl anchor = new HtmlGenericControl("a");
+                anchor.InnerText = row["pseudo"].ToString();
+                li.Controls.Add(anchor);
+                */
+            }
+        }
+
+    }
+}

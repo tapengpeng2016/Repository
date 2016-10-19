@@ -28,6 +28,9 @@
         width:100%;
         
     }
+    #CONNEXION{
+        margin-right:10%;
+    }
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server" >

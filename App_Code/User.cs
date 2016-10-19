@@ -12,16 +12,18 @@ using System.Web.UI.WebControls;
 /// 2 statuts: en attente ou confirmation inscription
 /// </summary>
 
-
+//classe Usager
 public class User 
 {
- public int Id_user;
+    public int Id_user;//=Id_Usager
     public int Id_acces;
     public int Id_statut;
-    public int Id_personne;
-  public string email;
-   public string mdp;
-    public string tel;
+    public string nom;
+    public string prenom;
+    public DateTime dateNaissance;
+    public string email; //=identifiant
+    public string mdp;
+    
     //private string str = "REPOSITORY";
     private string st;
     private string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -36,7 +38,7 @@ public class User
        
     }
 
-    #region enregistrerInscription
+    #region enregistrerInscription- A modifier
     public void EnregistrerInscription(User u)
     {
        cnx= new SqlConnection(str);
@@ -63,7 +65,8 @@ public class User
         cnx = new SqlConnection(str);
         //Insérer les infos dans [User]
         cnx.Open();
-             string sql1 = "INSERT INTO [User](Id_User,Id_Personne,Id_Acces,Id_Statut,email,mdp,tel) VALUES('" + id_user + "','"+id_personne+"','" +u.Id_acces+"','"+u.Id_statut+ "','" + u.email + "', '" + u.mdp + "','" + u.tel + "')";
+             string sql1 = @"INSERT INTO [User](Id_User,Id_Personne,Id_Acces,Id_Statut,email,mdp,tel) 
+                                VALUES('" + id_user + "','"+id_personne+"','" +u.Id_acces+"','"+u.Id_statut+ "','" + u.email + "', '" + u.mdp + "')";
             SqlCommand cmd1 = new SqlCommand(sql1, cnx);
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
@@ -91,21 +94,23 @@ public class User
      }*/
     #endregion
 
-    #region knownUser
-   /* public int KnownUser(User u)
-    {
-        cnx = new SqlConnection(str);
-        cnx.Open();
-        string sql0 = "SELECT count(*) FROM [Usager] WHERE email='" + u.email+"'";
-        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
-        cmd0.CommandType = CommandType.Text;
-        int userExistant=0;
-         userExistant = Convert.ToInt32(cmd0.ExecuteScalar());
-         cnx.Close();
-      
-        return userExistant;
-    }
-    */
+    #region knownUser-vérifier login & mdp
+    /* public int KnownUser(User u)
+     {
+         cnx = new SqlConnection(str);
+         cnx.Open();
+         string sql0 = "SELECT count(*) FROM [Usager] WHERE email='" + u.email+"'";
+         SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+         cmd0.CommandType = CommandType.Text;
+         int userExistant=0;
+          userExistant = Convert.ToInt32(cmd0.ExecuteScalar());
+          cnx.Close();
+
+         return userExistant;
+     }
+     */
+
+
     public int KnownUser(string login, string mdp)
     {
         cnx = new SqlConnection(str);
@@ -123,7 +128,7 @@ public class User
     }
     #endregion
 
-    #region selectionProfil
+    #region selectionProfil-Sélectionner Id_Usager selon email&mdp
     public DataTable selectionProfil(string email, string mdp)
     {
         cnx = new SqlConnection(str);
@@ -141,7 +146,7 @@ public class User
  
     }
 #endregion
-    #region modifProfil
+    #region modifProfil-A modifier
     public void ModifProfil(Personne p,User u,Adresse a)
     {
         cnx =new SqlConnection(str);
@@ -170,7 +175,7 @@ public class User
         cnx.Close();
 
         cnx.Open();
-        string sql4 = "UPDATE [User] SET tel = '"+u.tel+"'  WHERE Id_Personne=" + id_personne;
+        string sql4 = "UPDATE [User] SET tel = ''  WHERE Id_Personne=" + id_personne;
         SqlCommand cmd4 = new SqlCommand(sql4, cnx);
         cmd4.CommandType = CommandType.Text;
         cmd4.ExecuteNonQuery();
@@ -180,13 +185,12 @@ public class User
     }
     #endregion
     #region RemplirGrid
-    public void RemplirGrid(GridView g)
+    public void RemplirGrid(string req,GridView g)
     {
         cnx = new SqlConnection(str);
         cnx.Open();
-        cmd_1 = new SqlCommand("SELECT * From [Article],[Format_article],[Genre] WHERE (Id_Article In (SELECT Id_Article From [Exemplaire] WHERE Id_Emprunt=0)) AND([Article].Id_Format=[Format_article].Id_Format) AND ([Article].Id_Genre=[Genre].Id_Genre);", cnx);
+        cmd_1 = new SqlCommand(req, cnx);
         cmd_1.CommandType = CommandType.Text;
-      
         dr = cmd_1.ExecuteReader();
         dt = new DataTable();
         dt.Load(dr);
@@ -195,7 +199,7 @@ public class User
         cnx.Close();
     }
     #endregion
-    #region RemplirGridAvecFormat
+    #region RemplirGridAvecFormat-page public
     public void RemplirGrid(int id_format,GridView g)
     {
         cnx = new SqlConnection(str);
@@ -211,7 +215,7 @@ public class User
         cnx.Close();
     }
     #endregion
-    #region RemplirGridAvecGenre
+    #region RemplirGridAvecGenre-page public
     public void RemplirGridGenre(int id_genre, GridView g)
     {
         cnx = new SqlConnection(str);
@@ -227,7 +231,7 @@ public class User
         cnx.Close();
     }
     #endregion
-    #region RemplirGridAvecGenreEtFormat
+    #region RemplirGridAvecGenreEtFormat-page public
     public void RemplirGridGenreFormat(int id_genre, int id_format,GridView g)
     {
         cnx = new SqlConnection(str);
@@ -254,8 +258,8 @@ public class User
         cnx.Close();
     }
     #endregion
-    #region RécupérerValeurs
-    public DataTable RecupérerValeurs(string req,DropDownList ddl)
+    #region RécupérerValeurs-DropDownList-Format
+    public void RecupérerValeurs(string req,DropDownList ddl)
     {
         cnx = new SqlConnection(str);
         cnx.Open();
@@ -275,12 +279,33 @@ public class User
         dt = new DataTable();
         SqlDataAdapter adaptater = new SqlDataAdapter(cmd_1);
         adaptater.Fill(dt);
-        ddl.DataSource = dt;
+        ddl.DataSource = dt.DefaultView;
+        ddl.DataTextField = "Libelle_Format";
+        ddl.DataValueField = "Id_Format";
         ddl.DataBind();
         cnx.Close();
-        return dt;
+        //return dt;
     }
     #endregion
 
+    #region ConsulterEmprunt
+    public void ConsulterEmprunt()
+    {
+        //usager
+        //admin
+    }
+    #endregion
 
+    #region Emprunter pour usagers
+    public void Emprunter()
+    {
+        //admin
+    }
+    #endregion
+    #region Rendre pour usager
+    public void RendreArticle()
+    {
+        //admin
+    }
+    #endregion
 }

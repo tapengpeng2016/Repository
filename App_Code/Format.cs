@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Format
 {
-   public String id_format;
+   public int id_format;
     public string libelle_format;
     public Format()
     {
@@ -16,7 +16,7 @@ public class Format
         // TODO: Add constructor logic here
         //
     }
-    public Format(string id, string libelle)
+    public Format(int id, string libelle)
     {
         this.id_format = id;
         this.libelle_format = libelle;

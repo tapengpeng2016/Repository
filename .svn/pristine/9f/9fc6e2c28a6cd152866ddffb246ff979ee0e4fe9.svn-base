@@ -1,0 +1,9 @@
+﻿function click_1(){
+	alert('Attention!');
+}
+function clic_test(id) {
+    document.getElementById(id).innerHTML = "contenu traité deux fois";
+}
+function bo() {
+    alert('what are u doing?!')
+}

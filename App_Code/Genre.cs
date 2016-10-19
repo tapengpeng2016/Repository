@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Description résumée de Info
+/// Description résumée de Genre
 /// </summary>
-public class Info
+public class Genre
 {
-    public Info()
+    public int id_genre;
+    public string libelle_genre;
+
+    public Genre()
     {
         //
         // TODO: Add constructor logic here
         //
     }
-   
 }

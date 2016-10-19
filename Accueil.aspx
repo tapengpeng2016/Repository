@@ -6,30 +6,46 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
 
+    <div>
     <asp:Button ID="BTN_CONNEXION" CssClass="CONNEXION" runat="server" OnClick="BTN_CONNEXION_Click" Text="CONNEXION" />
-    <br />
+    </div>
+        <br />
     <br />
     <p></p>
     <asp:Panel ID="Panel1" runat="server"></asp:Panel>
     <asp:Label ID="Label6" runat="server" Text=""></asp:Label>
-    <asp:Label ID="Label5" runat="server" Text="Bibliothèque Médiathèque" Font-Bold="True" Font-Size="X-Large" Font-Strikeout="False" ForeColor="White"></asp:Label>
+    <p>BIBLIOTHEQUE CINETHEQUE</p>
     <br />
     <br />
-    <asp:Label ID="LB_FORMAT"  runat="server" Text="Format: "></asp:Label>
-    <asp:DropDownList ID="DDL_FORMAT" OnSelectedIndexChanged="DDL_FORMAT_SelectedIndexChanged" AutoPostBack="True" runat="server">
-         
-    </asp:DropDownList>
-    <br />
-    <br />
-    <asp:Label ID="LB_GENRE" runat="server" Text="Genre: "></asp:Label>
-    <asp:DropDownList ID="DDL_GENRE" AutoPostBack="true" OnSelectedIndexChanged="DDL_GENRE_SelectedIndexChanged" runat="server">
-          <asp:ListItem Value="0">Tous séléctionner</asp:ListItem>
-        <asp:ListItem Value="1">Science</asp:ListItem>
-            <asp:ListItem Value="2">Mode</asp:ListItem>
-         <asp:ListItem Value="3">BD</asp:ListItem>
-       
+    <div>
+    <asp:Table ID="Table1" runat="server" Height="65px" Width="218px">
+        <asp:TableRow runat="server">
+            <asp:TableCell runat="server">
+                   <asp:Label ID="LB_FORMAT"   runat="server" Text="Format: "></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell runat="server">
+                 <asp:DropDownList ID="DDL_FORMAT" Width="100px" OnSelectedIndexChanged="DDL_FORMAT_SelectedIndexChanged" AutoPostBack="True" runat="server">
+             <asp:ListItem Value="0">Tous sélectionner</asp:ListItem>
+                 </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow runat="server">
+            <asp:TableCell runat="server">
+                 <asp:Label ID="LB_GENRE" runat="server" Text="Genre: "></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell runat="server">
+                <asp:DropDownList ID="DDL_GENRE" AutoPostBack="true" Width="100px" OnSelectedIndexChanged="DDL_GENRE_SelectedIndexChanged" runat="server">
+                    <asp:ListItem Value="0">Tous sélectionner</asp:ListItem>
+                    <asp:ListItem Value="1">Science</asp:ListItem>
+                    <asp:ListItem Value="2">Mode</asp:ListItem>
+                    <asp:ListItem Value="3">BD</asp:ListItem>
+                </asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow>
 
-    </asp:DropDownList>
+    </asp:Table>
+    </div>
+ <br />  
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" style="margin-top: 3px" Width="653px" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="White" />
         <Columns>

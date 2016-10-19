@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Description résumée de Adresse
+/// </summary>
+public class Adresse
+{
+    public int Id_adresse;
+    public string adresse;
+    public string adresse_complement;
+    public string code_postal;
+    public string ville;
+    public string pays;
+
+
+
+    public Adresse()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+}

@@ -104,7 +104,7 @@ public partial class Modif_profil : System.Web.UI.Page
             p.prenom = TXTB_PRENOM.Text;
             
             User u = new User();
-            u.tel = TXTB_TEL.Text;
+      
             u.email = TXTB_MAIL.Text;
             u.mdp = TXTB_MDP1.Text;
 
