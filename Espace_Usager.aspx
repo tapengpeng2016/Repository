@@ -19,7 +19,7 @@
     <div>
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
         <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" runat="server" Text="Mes emprunts" />
-        <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
+       <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
             <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
@@ -92,21 +92,16 @@
             </asp:GridView>
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-        </asp:Panel>
-        <asp:Panel ID="PL_PROFIL" runat="server">
-             <asp:Table ID="Table1" runat="server" Width="905px" CssClass="table">
-              <asp:TableRow>
-                <asp:TableCell></asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox ID="TXTB_MDP1" Visible="false" CssClass="tbox" runat="server"></asp:TextBox>                
-                </asp:TableCell>
-                <asp:TableCell>         
-                </asp:TableCell>
-            </asp:TableRow>
+     </asp:Panel>
+     <asp:Panel ID="PL_PROFIL" runat="server">
+             <asp:Table ID="T_PROFIL" runat="server" Width="905px" CssClass="table">
+        
             <asp:TableRow>
-                <asp:TableCell>Civilité: </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label ID="LB_CIVILITE" Visible="false" runat="server" Text="Civilité: "></asp:Label>
+                </asp:TableCell>
                 <asp:TableCell>                        
-               <asp:DropDownList ID="DDL_CIVILITE" CssClass="tbox" runat="server">
+               <asp:DropDownList ID="DDL_CIVILITE" Visible="false" CssClass="tbox" runat="server">
                         <asp:ListItem Text="monsieur" Value="Monsieur">Monsieur</asp:ListItem>
                         <asp:ListItem Text="madame" Value="Madame">Madame</asp:ListItem>
                </asp:DropDownList>
@@ -114,23 +109,23 @@
                <asp:TableCell> </asp:TableCell>
            </asp:TableRow>
            <asp:TableRow>
-               <asp:TableCell>Nom:*</asp:TableCell>
+               <asp:TableCell>Nom:</asp:TableCell>
                <asp:TableCell>
-                    <asp:TextBox ID="TXTB_NOM" CssClass="tbox txtbNom" Enabled="true" Text="" OnTextChanged="TXTB_NOM_TextChanged"  runat="server"></asp:TextBox>
+                    <asp:TextBox ID="TXTB_NOM" ReadOnly="true" CssClass="tbox txtbNom"  Text="" OnTextChanged="TXTB_NOM_TextChanged"  runat="server"></asp:TextBox>
                </asp:TableCell>
                <asp:TableCell> <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="inscription" runat="server" ControlToValidate="TXTB_NOM" ErrorMessage="champ obligatoire"></asp:RequiredFieldValidator> 
                </asp:TableCell>
           </asp:TableRow>
           <asp:TableRow>
-                <asp:TableCell>Prénom:* </asp:TableCell>
+                <asp:TableCell>Prénom: </asp:TableCell>
                 <asp:TableCell> 
-                    <asp:TextBox ID="TXTB_PRENOM" CssClass="tbox txtbPrenom" Enabled="true" runat="server"></asp:TextBox>               
+                    <asp:TextBox ID="TXTB_PRENOM" ReadOnly="true" CssClass="tbox txtbPrenom"  runat="server"></asp:TextBox>               
                 </asp:TableCell>
                 <asp:TableCell><asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="inscription" runat="server" ControlToValidate="TXTB_PRENOM" ErrorMessage="champ obligatoire"></asp:RequiredFieldValidator> 
                 </asp:TableCell>     
          </asp:TableRow>        
         <asp:TableRow>
-              <asp:TableCell>E-mail:*</asp:TableCell>
+              <asp:TableCell>E-mail:</asp:TableCell>
               <asp:TableCell>
                     <asp:TextBox ID="TXTB_MAIL" CssClass="tbox" ReadOnly="true" runat="server"></asp:TextBox>              
               </asp:TableCell>
@@ -141,43 +136,81 @@
             </asp:TableCell>
        </asp:TableRow>
        <asp:TableRow>
-            <asp:TableCell>
-                    <asp:Label ID="LB_MDP" Visible="false" runat="server" Text="Mot de passe actuel:"></asp:Label></asp:TableCell>
-            <asp:TableCell>
-                    <asp:TextBox ID="TXTB_MDP" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
-            </asp:TableCell>
-            <asp:TableCell>         
+              <asp:TableCell>Mot de passe:</asp:TableCell>
+              <asp:TableCell>
+                    <asp:TextBox ID="TXTB_MDP" TextMode="Password" ReadOnly="true" CssClass="tbox" runat="server"></asp:TextBox>             
+                    <asp:Button ID="BTN_MODIF_MDP" runat="server" OnClick="BTN_MODIF_MDP_Click" Text="Modifer mot de passe" />
+              </asp:TableCell>
+              <asp:TableCell>
+                  
             </asp:TableCell>
        </asp:TableRow>
-       <asp:TableRow>
-                <asp:TableCell>
-                    <asp:Label ID="LB_NEWMDP1" Visible="false" runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox ID="TXTB_NEWMDP1" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
-                </asp:TableCell>
-                <asp:TableCell>                          
-                </asp:TableCell>
-       </asp:TableRow>
-       <asp:TableRow>
-                <asp:TableCell>
-                    <asp:Label ID="LB_NEWMDP2" Visible="false" runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox ID="TXTB_NEWMDP2" Visible="false" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
-                </asp:TableCell>
-                <asp:TableCell>                             
-                </asp:TableCell>
-        </asp:TableRow>
         <asp:TableRow>
                 <asp:TableCell></asp:TableCell>
                 <asp:TableCell>
-                    <asp:Button ID="BT_VALIDER" runat="server" OnClick="BT_VALIDER_Click" ValidationGroup="inscription" Text="VALIDER"/>              
+                                  
                 </asp:TableCell>
                 <asp:TableCell>
                 </asp:TableCell>
         </asp:TableRow>
         </asp:Table>
-        </asp:Panel>
-      
+            <asp:Label ID="LB_PROFIL" runat="server" Text=""></asp:Label>
+    </asp:Panel>
+    <asp:Panel ID="PL_MDP" visible="false" runat="server">
+       <asp:Table ID="T_MDP" runat="server" Width="722px" Height="149px">                
+        <asp:TableRow>
+                <asp:TableCell>
+                    
+                </asp:TableCell>              
+                <asp:TableCell> 
+                    <asp:Label ID="Label8"  runat="server" Text="MODIFICATION DE MOT DE PASSE"></asp:Label>                
+                </asp:TableCell>
+                <asp:TableCell>                          
+                </asp:TableCell>
+       </asp:TableRow>
+        <asp:TableRow>
+              <asp:TableCell>Ancien mot de passe:</asp:TableCell>
+              <asp:TableCell>
+                    <asp:TextBox ID="TXTB_ANCIENMDP" TextMode="Password" runat="server"></asp:TextBox>              
+              </asp:TableCell>
+              <asp:TableCell>
+                  <asp:RequiredFieldValidator ID="RFV_OLDMDP" ControlToValidate="TXTB_ANCIENMDP" runat="server" ForeColor="Red" ErrorMessage="Veuillez entrer votre ancien mot de passe"></asp:RequiredFieldValidator>               
+            </asp:TableCell>
+       </asp:TableRow>
+       
+       <asp:TableRow>
+            <asp:TableCell>
+                    <asp:Label ID="LB_NEWMDP1"  runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
+            <asp:TableCell>
+                    <asp:TextBox ID="TXTB_NEWMDP1"  TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>
+                <asp:RequiredFieldValidator ID="RFV_NEWMDP1" ControlToValidate="TXTB_NEWMDP1" runat="server" ForeColor="Red" ErrorMessage="Veuillez entrer votre nouveau mot de passe"></asp:RequiredFieldValidator><br /> 
+                <asp:CompareValidator ID="CV_NEWMDP1" runat="server" ControlToValidate="TXTB_NEWMDP1" ControlToCompare="TXTB_NEWMDP2" ForeColor="Red" ErrorMessage="Deux saisies non identiques"></asp:CompareValidator>                       
+            </asp:TableCell>
+       </asp:TableRow>
+       <asp:TableRow>
+            <asp:TableCell>
+                    <asp:Label ID="LB_NEWMDP2" runat="server" Text="Nouveau mot de passe:"></asp:Label></asp:TableCell>
+            <asp:TableCell>
+                    <asp:TextBox ID="TXTB_NEWMDP2" TextMode="Password" CssClass="tbox" runat="server"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>
+                <asp:RequiredFieldValidator ID="RFV_NEWMDP2" ControlToValidate="TXTB_NEWMDP2" runat="server" ForeColor="Red" ErrorMessage="Veuillez entrer votre nouveau mot de passe"></asp:RequiredFieldValidator><br />
+                <asp:CompareValidator ID="CV_NEWMDP2" runat="server" ControlToValidate="TXTB_NEWMDP2" ControlToCompare="TXTB_NEWMDP1" ForeColor="Red" ErrorMessage="Deux saisies non identiques"></asp:CompareValidator>                         
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>                                     
+            </asp:TableCell>
+            <asp:TableCell> 
+                 <asp:Button ID="BTN_VALIDERMDP" runat="server" OnClick="BTN_VALIDERMDP_Click" Text="VALIDER" />
+                                           
+            </asp:TableCell>
+        </asp:TableRow>
+            </asp:Table>
+                <asp:Label ID="LB_MSG" runat="server" Text=""></asp:Label> 
+        </asp:Panel>   
     </div>
     </form>
 </body>

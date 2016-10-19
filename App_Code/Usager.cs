@@ -73,7 +73,6 @@ public class Usager
         
     }
     #endregion
-
     #region EnvoyerMSG
     /* public string EnvoyerMSG()
      {
@@ -92,7 +91,6 @@ public class Usager
          }
      }*/
     #endregion
-
     #region knownUser-vérifier login & mdp
     /* public int KnownUser(User u)
      {
@@ -126,7 +124,6 @@ public class Usager
         return userExistant;
     }
     #endregion
-
     #region selectionProfil-Sélectionner Id_Usager selon email&mdp
     public DataTable selectionProfil(string email, string mdp)
     {
@@ -144,12 +141,43 @@ public class Usager
         return dt;
  
     }
-#endregion
+    #endregion
+    #region SelectionInfoUsager
+    public DataTable SelectionInfoUsager(int id)
+    {
+        cnx = new SqlConnection(str);
+        DataTable dt = new DataTable();
+        cnx.Open();
+        string sql0 = "SELECT * FROM [dbo].[Usager] WHERE Id_Usager=@id";
+        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+        cmd0.CommandType = CommandType.Text;
+        cmd0.Parameters.AddWithValue("@id", id);
+        SqlDataAdapter adaptater = new SqlDataAdapter(cmd0);
+        adaptater.Fill(dt);
+        cnx.Close();
+        return dt;
+    }
+    #endregion
+    #region Modifier mot de passe par usager
+    public void ModifierMDP(int id,string mdp)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        string sql0 = "UPDATE [dbo].[Usager] SET mdp=@mdp WHERE Id_Usager=@id";
+        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+        cmd0.CommandType = CommandType.Text;
+        cmd0.Parameters.AddWithValue("@id", id);
+        cmd0.Parameters.AddWithValue("@mdp", mdp);
+        cmd0.ExecuteNonQuery();
+        cnx.Close();
+      
+       
+    }
+    #endregion
     #region modifProfil-A modifier
     public void ModifProfil(Usager u,Adresse a)
     {
         cnx =new SqlConnection(str);
-
         cnx.Open();
         string sql0 = "SELECT Id_Personne FROM [dbo].[Usager] WHERE email='" + u.email+ "'";
         SqlCommand cmd0 = new SqlCommand(sql0, cnx);
@@ -157,18 +185,12 @@ public class Usager
         int id_personne = Convert.ToInt32(cmd0.ExecuteScalar());
         cnx.Close();
 
-       
-    
         cnx.Open();
         string sql3 = "UPDATE [dbo].[Adresse] SET adresse='"+a.adresse+"', adresse_complement='"+a.adresse_complement+"',code_postal='"+a.code_postal+"', ville='"+a.ville+"',pays='"+a.pays+"' WHERE Id_Personne="+id_personne;
         SqlCommand cmd3 = new SqlCommand(sql3, cnx);
         cmd3.CommandType = CommandType.Text;
         cmd3.ExecuteNonQuery();
-        cnx.Close();
-
-        
-
-      
+        cnx.Close();    
     }
     #endregion
     #region RemplirGrid
@@ -274,7 +296,6 @@ public class Usager
         //return dt;
     }
     #endregion
-
     #region ConsulterEmprunt
   
     public void ConsulterEmprunt(int id,GridView g)
@@ -294,8 +315,6 @@ public class Usager
         cnx.Close();
     }
     #endregion
-  
-
     #region Emprunter pour usagers
     public void Emprunter()
     {
