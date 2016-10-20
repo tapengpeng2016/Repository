@@ -124,22 +124,39 @@ public class Usager
         return userExistant;
     }
     #endregion
-    #region selectionProfil-Sélectionner Id_Usager selon email&mdp
-    public DataTable selectionProfil(string email, string mdp)
+    #region selectionProfil-Sélectionner Id_Usager & acces selon email&mdp
+    public DataTable selectionProfil(string mail, string mdp1)
     {
         cnx = new SqlConnection(str);
         DataTable dt = new DataTable();
         cnx.Open();
-        string sql0 = "SELECT Id_Usager FROM [dbo].[Usager] WHERE identifiant=@email AND mdp=@mdp";
-        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
-        cmd0.CommandType = CommandType.Text;
-        cmd0.Parameters.AddWithValue("@email", email);
-        cmd0.Parameters.AddWithValue("@mdp", mdp);
+        
+        
+        string sql0 = "SELECT Id_Usager,acces FROM [dbo].[Usager] WHERE Identifiant=@email AND mdp=@mdp";
+         SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+         cmd0.CommandType = CommandType.Text;
+         cmd0.Parameters.AddWithValue("@email", email);
+         cmd0.Parameters.AddWithValue("@mdp", mdp);
+         SqlDataAdapter adaptater = new SqlDataAdapter(cmd0);
+         adaptater.Fill(dt);
+         cnx.Close();
+         return dt;
+         /* 
+        SqlCommand cmd0 = new SqlCommand("SelectProfil", cnx);
+        cmd0.CommandType = CommandType.StoredProcedure;
+        SqlParameter email = new SqlParameter("email", SqlDbType.NVarChar);
+        email.Value = mail;
+        cmd0.Parameters.Add(email);
+
+        SqlParameter mdp = new SqlParameter("mdp", SqlDbType.NVarChar);
+        mdp.Value = mdp1;
+        cmd0.Parameters.Add(mdp);
+
         SqlDataAdapter adaptater = new SqlDataAdapter(cmd0);
         adaptater.Fill(dt);
         cnx.Close();
         return dt;
- 
+         */
     }
     #endregion
     #region SelectionInfoUsager
@@ -148,7 +165,7 @@ public class Usager
         cnx = new SqlConnection(str);
         DataTable dt = new DataTable();
         cnx.Open();
-        string sql0 = "SELECT * FROM [dbo].[Usager] WHERE Id_Usager=@id";
+        string sql0 = "SELECT * FROM [dbo].[Usager],[Abonnement],[Tarif] WHERE [Usager].Id_Usager=@id AND [Abonnement].Id_Usager=[Usager].Id_Usager AND [Abonnement].Id_Tarif=[Tarif].Id_Tarif";
         SqlCommand cmd0 = new SqlCommand(sql0, cnx);
         cmd0.CommandType = CommandType.Text;
         cmd0.Parameters.AddWithValue("@id", id);
@@ -158,6 +175,8 @@ public class Usager
         return dt;
     }
     #endregion
+
+   
     #region Modifier mot de passe par usager
     public void ModifierMDP(int id,string mdp)
     {
@@ -170,7 +189,6 @@ public class Usager
         cmd0.Parameters.AddWithValue("@mdp", mdp);
         cmd0.ExecuteNonQuery();
         cnx.Close();
-      
        
     }
     #endregion

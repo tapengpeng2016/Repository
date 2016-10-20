@@ -17,6 +17,7 @@
             <p style="margin-left: 80px">
                 CONNEXION</p>
         </div>
+        <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
         <asp:Table ID="Table1" runat="server" Width="577px" style="margin-left: 0px">
             <asp:TableRow runat="server">
                 <asp:TableCell runat="server"><asp:Label ID="Label1" runat="server" Text="Login: "></asp:Label></asp:TableCell>
