@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Commenter : System.Web.UI.Page
+{
+    string email;
+    string mdp;
+    string statut;
+    string verif_statut;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        DataTable dt = (DataTable)Session["User"];
+        if (dt == null)
+        {
+            Label2.Text = "Session vide";
+            //Response.Redirect("Connexion.aspx");
+        }
+        else
+        {
+            DataRow[] resultUser = dt.Select();//on crée un tableau datarow où on met dt
+
+            foreach (DataRow row in resultUser)
+            {
+
+                TextBox1.Text = row["sujet"].ToString();
+                TextBox2.Text = row["contenu"].ToString();
+
+            }
+
+        }
+    }
+
+    protected void BTN_MODIF_Click(object sender, EventArgs e)
+    {
+        //utiliser méthode modifier de la classe sujet
+        //il peut modifier si le sujet est à lui
+
+
+
+        DataTable dt = (DataTable)Session["User"];
+        if (dt == null)
+        {
+            Label2.Text = "Session vide";
+
+            //Response.Redirect("Connexion.aspx");
+        }
+        else
+        {
+            DataRow[] resultUser = dt.Select();
+            foreach (DataRow row in resultUser)
+            {
+
+                TextBox1.Enabled = false;
+                TextBox2.Enabled = false;
+            }
+        }
+    }
+
+    protected void BTN_SUP_Click(object sender, EventArgs e)
+    {
+       
+        //utiliser méthode supprimer de la classe sujet
+        DataTable dt = (DataTable)Session["User"];
+        if (dt == null)
+        {
+            Label2.Text = "Session vide";
+
+        }
+        else
+        {
+            User u = new User();
+            u.statut = "";
+            u.Id_User = 0;
+            u.nom = "";
+            u.prenom = "";
+
+            Sujet s = new Sujet();
+            s.sujet = TextBox1.Text;
+            s.contenu = TextBox2.Text;
+
+
+            DataRow[] resultUser = dt.Select();
+            foreach (DataRow row in resultUser)
+            {
+                email = row["email"].ToString();
+                mdp = row["mdp"].ToString();
+                statut = row["statut"].ToString();
+            }
+           
+
+            verif_statut=u.VerifStatut(u);
+           // if(verif_statut == "moderateur"||u.email==)
+
+
+        }
+
+    }
+}

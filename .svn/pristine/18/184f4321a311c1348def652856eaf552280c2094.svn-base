@@ -1,0 +1,25 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Boucle_interative.aspx.cs" Inherits="Boucle_interative" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" href="style/joliePage.css" />
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="boucle_interative">
+    <asp:Panel ID="Panel2" runat="server">
+    <h1>Modification de style</h1>
+<% for (int i = 0; i < 7; i++)
+    {%>
+        <font size="<%=i%>">Instruction de boucle dans un bloc de code entre balises &lt;% %&gt;</font> 
+        <br />
+    <%} %>
+    </asp:Panel>
+    </div>
+    </form>
+</body>
+</html>

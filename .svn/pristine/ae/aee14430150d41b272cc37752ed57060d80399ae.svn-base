@@ -1,0 +1,58 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="WebFormDynamique.aspx.cs" Inherits="HTMLWebForm" StyleSheetTheme="" %>
+<script runat="server">
+    /*le langage server: c#*/
+    void clic_test(object sender, System.EventArgs e)
+    {
+        Button1.Text = "boutton traité";
+    }
+</script>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" href="style/joliePage.css" />
+<script src="javascript/script.js"></script>
+<script src="javascript/jquery-1.7.2.js"></script>
+<script src="javascript/jquery-1.7.2.min.js"></script>
+    <title></title>
+    <style type="text/css">
+        #form1 {
+            height: 156px;
+        }
+    </style>
+</head>
+<body class="background" >
+    <form id="form1" runat="server" class="background" method="post">
+    <div>
+    
+        <asp:Button ID="Button1" runat="server" Text="Button WebForm"  OnClick="clic_test" />
+    
+        <br />
+    
+    </div>
+        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+            <asp:ListItem>Rouge</asp:ListItem>
+            <asp:ListItem>Bleu</asp:ListItem>
+            <asp:ListItem>Jaune</asp:ListItem>
+            <asp:ListItem>Violet</asp:ListItem>
+        </asp:DropDownList>
+        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+        <br />
+        <br />
+        <asp:ListBox ID="ListBox1" runat="server" Height="73px" Width="121px" AutoPostBack="True" OnSelectedIndexChanged="ListBox1_SelectedIndexChanged">
+            <asp:ListItem>apple</asp:ListItem>
+            <asp:ListItem>b</asp:ListItem>
+            <asp:ListItem>fanta</asp:ListItem>
+        </asp:ListBox>
+
+        <br />
+        <asp:Label ID="meteo" runat="server" Text="Label"></asp:Label>
+        <br />
+        <asp:TextBox ID="TextBox2" runat="server" OnTextChanged="TextBox2_TextChanged" ></asp:TextBox>
+        <asp:ImageButton ID="ImageButton1" runat="server" />
+        <br />
+    </form>
+</body>
+</html>

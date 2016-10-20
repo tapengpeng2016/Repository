@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class ValidationFormulaire : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        InitializeComponent();
+
+        //comparer le champ avec la valeur
+        CV_NOM.ValueToCompare = "Huifang";
+        //TXTb_NOM: id du textbox
+        CV_NOM.ControlToValidate = "TXTB_NOM";
+        //opération à effectuer
+        CV_NOM.Operator = ValidationCompareOperator.Equal;
+        CV_NOM.ErrorMessage = "Nom erroné, recommencez";
+
+        RFV_SEXE.ControlToValidate = "RBL_SEXE";
+        RFV_SEXE.ErrorMessage = "Choissez le sexe";
+
+        RFV_AGE.ControlToValidate = "TXTB_AGE";
+        RFV_AGE.ErrorMessage = "Veuillez rentrer votre âge !";
+
+        RangeValidator1.ControlToValidate= "TXTB_AGE";
+        RangeValidator1.MinimumValue = "1";
+        RangeValidator1.MaximumValue = "120";
+        RangeValidator1.Type = ValidationDataType.Integer;
+        RangeValidator1.ErrorMessage = "Soyez raisonable avec votre âge !";
+
+        
+
+
+    }
+    private void InitializeComponent()
+    {
+        
+    }
+
+  
+    protected void TXTB_NOM_TextChanged(object sender, EventArgs e)
+    {
+        //propriété native du boutton, si on click, il va soumettre le formulaire
+        //ici, on ajoute un autre event qui permet d'afficher un msg
+        this.Button1.Click += new System.EventHandler(this.Button1_Click);
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Label1.Text = "Données acceptées et enregistrées dans la base de donnée";
+    }
+}

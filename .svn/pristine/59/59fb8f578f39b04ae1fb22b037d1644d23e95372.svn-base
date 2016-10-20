@@ -1,0 +1,20 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ErrorPage.aspx.cs" Inherits="ErrorPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <%="Une erreur est survenue.<br/>La page suivante n'a pas pu être trouvé" %>
+        <br />
+        <% var query_string = Request.QueryString["aspxerrorpath"];
+            Response.Write(query_string); %>
+    </div>
+    </form>
+</body>
+</html>

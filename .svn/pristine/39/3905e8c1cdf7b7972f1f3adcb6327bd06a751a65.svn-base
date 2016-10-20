@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
+
+/// <summary>
+/// Personne s'est incrit en ligne
+/// 2 statuts: en attente ou confirmation inscription
+/// </summary>
+
+
+public class User 
+{
+ public int Id_User;
+  public string email;
+   public string mdp;
+    public string nom;
+    public string prenom;
+    public string statut;
+    const string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Forum;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    public static SqlCommand cmd_1;
+    public static SqlDataReader dr;
+    public static DataTable dt;
+    SqlConnection cnx;
+
+    public User()
+    {
+       
+    }
+
+    #region EnregistrerInscription
+    public void EnregistrerInscription(User u)
+    {   
+
+        //Insérer les infos dans [User]
+          /*   cnx.Open();
+             string sql1 = "INSERT INTO [User](pseudo,email,mdp) VALUES('"+u.pseudo+"','" + u.email + "', '" + u.mdp +"')";
+            SqlCommand cmd1 = new SqlCommand(sql1, cnx);
+            cmd1.CommandType = CommandType.Text;
+            cmd1.ExecuteNonQuery();
+            cnx.Close();
+
+    */
+
+    }
+    #endregion
+    #region KnownUser
+    public int KnownUser(User u)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        string sql0 = "SELECT count(*) FROM [User] WHERE email='" + u.email + "'";
+        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+        cmd0.CommandType = CommandType.Text;
+        int userExistant = 0;
+        userExistant = Convert.ToInt32(cmd0.ExecuteScalar());
+        cnx.Close();
+
+        return userExistant;
+    }
+    public int KnownUser(string login, string mdp)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+     
+        string sql0 = "SELECT count(*) FROM [dbo].[User] WHERE email=@login AND mdp=@mdp";
+        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+        cmd0.CommandType = CommandType.Text;
+        cmd0.Parameters.AddWithValue("@login",login);
+        cmd0.Parameters.AddWithValue("@mdp", mdp);
+        int userExistant;
+        userExistant = Convert.ToInt32(cmd0.ExecuteScalar());
+        cnx.Close();
+        return userExistant;
+    }
+    #endregion
+    #region selectionProfil
+    public DataTable selectionProfil(string email, string mdp)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        string sql0 = "SELECT Id_User FROM [dbo].[User] WHERE email=@email AND mdp=@mdp";
+        SqlCommand cmd0 = new SqlCommand(sql0, cnx);
+        cmd0.CommandType = CommandType.Text;
+        cmd0.Parameters.AddWithValue("@email", email);
+        cmd0.Parameters.AddWithValue("@mdp", mdp);
+        DataTable dt = new DataTable();
+        SqlDataAdapter adaptater = new SqlDataAdapter(cmd0);
+        adaptater.Fill(dt);
+        cnx.Close();
+        return dt;
+
+    }
+    #endregion
+   
+    #region RemplirGrid
+    public void RemplirGrid(string req, GridView g)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        cmd_1 = new SqlCommand(req, cnx);
+        dr = cmd_1.ExecuteReader();
+        dt = new DataTable();
+        dt.Load(dr);
+        g.DataSource = dt;
+        g.DataBind();
+        cnx.Close();
+    }
+    #endregion
+
+    #region Executer
+    public void Executer(string req)
+    {
+        cnx = new SqlConnection(str);
+        cnx.Open();
+        cmd_1 = new SqlCommand(req, cnx);
+        cmd_1.ExecuteNonQuery();
+        cnx.Close();
+    }
+    #endregion
+}
