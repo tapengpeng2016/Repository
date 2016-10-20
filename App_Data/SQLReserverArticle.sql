@@ -12,7 +12,7 @@ VALUES
 	FROM [dbo].[Exemplaire] as X
 	WHERE X.Id_Article = @idArticle
 	AND X.Id_Exemplaire NOT IN (SELECT Id_Exemplaire 
-									FROM [dbo].[Reservation] 
-									WHERE [Id_Usager] = @idUsager)), 
+									FROM [dbo].[Reservation]
+									WHERE [Id_Usager] = @idUsager)),
 GETDATE());
 GO

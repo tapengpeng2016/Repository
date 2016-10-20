@@ -142,6 +142,28 @@ public class Usager
         }
         return success;
     }
+    public bool ReserverArticle(int idUsager, int idArticle)
+    {
+        bool success = true;
+        using(SqlConnection cnx = new SqlConnection(str))
+        {
+            cnx.Open();
+            // ---------------------------------------------------------------------- //
+            SqlCommand cmd = new SqlCommand("ReserverArticle", cnx);
+            cmd.CommandType = CommandType.StoredProcedure;
+            // ---------------------------------------------------------------------- //
+            SqlParameter Id_Usager = new SqlParameter("idUsager", SqlDbType.Int);
+            cmd.Parameters.Add("Id_Usager");
+            // ---------------------------------------------------------------------- //
+            SqlParameter Id_Article = new SqlParameter("idArticle", SqlDbType.Int);
+            cmd.Parameters.Add("Id_Article");
+            // ---------------------------------------------------------------------- //
+            cmd.ExecuteNonQuery();
+            // ---------------------------------------------------------------------- //
+            cnx.Close();
+        }
+        return success;
+    }
     #region EnvoyerMSG
     /* public string EnvoyerMSG()
      {

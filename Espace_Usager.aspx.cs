@@ -54,19 +54,16 @@ public partial class Espace_Usager : System.Web.UI.Page
         }
         base.OnInitComplete(e);
     }
-
     protected void BTN_DECONNEXION_Click(object sender, EventArgs e)
     {
         Session.Abandon();
         Session.Clear();
         Response.Redirect("Connexion.aspx");
     }
-
     protected void TXTB_NOM_TextChanged(object sender, EventArgs e)
     {
         this.TXTB_NOM.Text = this.TXTB_NOM.Text.ToUpper();
     }
-
     protected void BT_VALIDER_Click(object sender, EventArgs e)
     {
         DataTable dt = (DataTable)Session["Usager"];
@@ -106,18 +103,14 @@ public partial class Espace_Usager : System.Web.UI.Page
             }
         } 
     }
-    
-
     protected void BTN_MODIF_MDP_Click(object sender, EventArgs e)
     {
         PL_MDP.Visible = true;
     }
-
     protected void BTN_VALIDERMDP_Click(object sender, EventArgs e)
     {
 
     }
-
     protected void GV_ACCUEIL_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int idArticle =
@@ -140,7 +133,6 @@ public partial class Espace_Usager : System.Web.UI.Page
             BTN_RESERVER.Visible = true;
         }
     }
-
     protected void BTN_RESERVER_Click(object sender, EventArgs e)
     {
         try
@@ -154,14 +146,13 @@ public partial class Espace_Usager : System.Web.UI.Page
                 idUsager = int.Parse(row["Id_Usager"].ToString());
                 LB_NOMARTICLE.Text += idUsager.ToString();
             }
-            if (idUsager != 0) { u.Reserver(idUsager, int.Parse(LB_IDARTICLE.Text)); };
+            if (idUsager != 0) { u.ReserverArticle(idUsager, int.Parse(LB_IDARTICLE.Text)); LB_NOMARTICLE.Text += "ERREUR"; };
         }
         catch
         {
-            LB_NOMARTICLE.Text += "ERREUR" ;
+            //LB_NOMARTICLE.Text += "ERREUR" ;
         }
     }
-
     protected void BTN_EMPRUNTER_Click(object sender, EventArgs e)
     {
 
