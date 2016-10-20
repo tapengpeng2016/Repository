@@ -14,7 +14,6 @@ public partial class Connexion : System.Web.UI.Page
 
     protected void BTN_CONNECTER_Click(object sender, EventArgs e)
     {
-        
         Usager u = new Usager();
         u.Id_usager = 0;   
         u.email = TXTB_LOGIN.Text.ToString();

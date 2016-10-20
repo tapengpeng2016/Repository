@@ -18,8 +18,7 @@ public partial class Espace_Usager : System.Web.UI.Page
         //récupérer Id_Usager
         Usager u = new Usager();
         DataTable dt = (DataTable)Session["Usager"];
-        DataRow[] dr = dt.Select();
-        foreach (DataRow row in dr)
+        foreach (DataRow row in dt.Rows)
         {
             usager = row["Id_Usager"].ToString();
         }
@@ -115,6 +114,55 @@ public partial class Espace_Usager : System.Web.UI.Page
     }
 
     protected void BTN_VALIDERMDP_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void GV_ACCUEIL_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int idArticle =
+        (int)GV_ACCEUIL.DataKeys[Convert.ToInt32(e.CommandArgument)].Value;
+        PL_RE.Visible = true;
+        LB_IDARTICLE.Text = idArticle.ToString();
+        Article a = new Article();
+        a.id_article = idArticle;
+        a.Selection();
+        LB_NOMARTICLE.Text = a.nom;
+        LB_AUTEUR.Text = a.auteur;
+        if (a.Disponible())
+        {
+            BTN_RESERVER.Visible = false;
+            BTN_EMPRUNTER.Visible = true;
+        }
+        else
+        {
+            BTN_EMPRUNTER.Visible = false;
+            BTN_RESERVER.Visible = true;
+        }
+    }
+
+    protected void BTN_RESERVER_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Session["Usager"];
+            Usager u = new Usager();
+            int idUsager = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                idUsager = int.Parse(row["Id_Usager"].ToString());
+                LB_NOMARTICLE.Text += idUsager.ToString();
+            }
+            if (idUsager != 0) { u.Reserver(idUsager, int.Parse(LB_IDARTICLE.Text)); };
+        }
+        catch
+        {
+            LB_NOMARTICLE.Text += "ERREUR" ;
+        }
+    }
+
+    protected void BTN_EMPRUNTER_Click(object sender, EventArgs e)
     {
 
     }
