@@ -19,6 +19,9 @@
     <div>
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
         <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" runat="server" Text="Mes emprunts" />
+        <asp:Panel ID="PL_ACCUEIL" runat="server">
+            <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        </asp:Panel>
        <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
             <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
                 <AlternatingRowStyle BackColor="White" />
