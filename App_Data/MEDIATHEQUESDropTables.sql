@@ -1,0 +1,84 @@
+﻿----------------------------------------------------
+--		-- DROP CONSTRAINT --
+----------------------------------------------------
+----------------------------------------------------
+
+---- ARTICLE ---------------------------------------
+--ALTER TABLE [dbo].[Article]
+--DROP CONSTRAINT [FK_Article_Genre], [FK_Article_Format];
+--GO
+---- EXEMPLAIRE ------------------------------------
+--ALTER TABLE [dbo].[Exemplaire]
+--DROP CONSTRAINT [FK_Exemplaire_Article], [FK_Exemplaire_Emprunt];
+--GO
+---- EMPRUNT ---------------------------------------
+--ALTER TABLE [dbo].[Emprunt]
+--DROP CONSTRAINT [FK_Emprunt_Exemplaire], [FK_Emprunt_Usager];
+--GO
+---- RESERVATION -----------------------------------
+--ALTER TABLE [dbo].[Reservation]
+--DROP CONSTRAINT [FK_Reservation_Usager], [FK_Reservation_Exemplaire];
+--GO
+---- ABONNEMENT ------------------------------------
+--ALTER TABLE [dbo].[Abonnement]
+--DROP CONSTRAINT [FK_Abonnement_Tarif], [FK_Abonnement_Usager];
+--GO
+
+----------------------------------------------------
+--		-- DELETE TABLE --
+----------------------------------------------------
+----------------------------------------------------
+
+---- USAGER ----------------------------------------
+--DELETE FROM [dbo].[Usager];
+---- FORMAT ----------------------------------------
+--DELETE FROM [dbo].[Format];
+---- GENRE -----------------------------------------
+--DELETE FROM [dbo].[Genre];
+---- ARTICLE ---------------------------------------
+--DELETE FROM [dbo].[Article];
+---- EXEMPLAIRE ------------------------------------
+--DELETE FROM [dbo].[Exemplaire];
+---- EMPRUNT ---------------------------------------
+--DELETE FROM [dbo].[Emprunt];
+---- RESERVATION -----------------------------------
+--DELETE FROM [dbo].[Reservation];
+---- TARIF -----------------------------------------
+--DELETE FROM [dbo].[Tarif];
+---- ABONNEMENT ------------------------------------
+--DELETE FROM [dbo].[Abonnement];
+
+----------------------------------------------------
+--		-- DROP TABLE --
+----------------------------------------------------
+----------------------------------------------------
+
+---- USAGER ----------------------------------------
+--DROP TABLE [dbo].[Usager];
+--GO
+---- FORMAT ----------------------------------------
+--DROP TABLE [dbo].[Format];
+--GO
+---- GENRE -----------------------------------------
+--DROP TABLE [dbo].[Genre];
+--GO
+---- ARTICLE ---------------------------------------
+--DROP TABLE [dbo].[Article];
+--GO
+---- EXEMPLAIRE ------------------------------------
+--DROP TABLE [dbo].[Exemplaire];
+--GO
+---- EMPRUNT ---------------------------------------
+--DROP TABLE [dbo].[Emprunt];
+--GO
+---- RESERVATION -----------------------------------
+--DROP TABLE [dbo].[Reservation];
+--GO
+---- TARIF -----------------------------------------
+--DROP TABLE [dbo].[Tarif];
+--GO
+---- ABONNEMENT ------------------------------------
+--DROP TABLE [dbo].[Abonnement];
+--GO
+
+DROP DATABASE MEDIATHEQUES

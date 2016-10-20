@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MEDIATHEQUES" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-RPHGH20\SQLEXPRESS;Initial Catalog=MEDIATHEQUES;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MEDIATHEQUEConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Abonnement" Member="Abonnement">
+    <Type Name="Abonnement">
+      <Column Name="idAbonnement" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idUsager" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idTarif" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dateAbonnement" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Tarif_Abonnement" Member="Tarif" ThisKey="idTarif" OtherKey="idTarif" Type="Tarif" IsForeignKey="true" />
+      <Association Name="Usager_Abonnement" Member="Usager" ThisKey="idUsager" OtherKey="idUsager" Type="Usager" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Article" Member="Article">
+    <Type Name="Article">
+      <Column Name="idArticle" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(350) NOT NULL" CanBeNull="false" />
+      <Column Name="idFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idGenre" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="acteurs" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Article_Exemplaire" Member="Exemplaire" ThisKey="idArticle" OtherKey="idArticle" Type="Exemplaire" />
+      <Association Name="Format_Article" Member="Format" ThisKey="idFormat" OtherKey="idFormat" Type="Format" IsForeignKey="true" />
+      <Association Name="Genre_Article" Member="Genre" ThisKey="idGenre" OtherKey="idGenre" Type="Genre" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Emprunt" Member="Emprunt">
+    <Type Name="Emprunt">
+      <Column Name="idEmprunt" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idUsager" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idExemplaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dateEmprunt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="dateRetourEstimee" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateRetourReelle" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Exemplaire_Emprunt" Member="Exemplaire" ThisKey="idExemplaire" OtherKey="idExemplaire" Type="Exemplaire" IsForeignKey="true" />
+      <Association Name="Usager_Emprunt" Member="Usager" ThisKey="idUsager" OtherKey="idUsager" Type="Usager" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Exemplaire" Member="Exemplaire">
+    <Type Name="Exemplaire">
+      <Column Name="idExemplaire" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="numero" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idArticle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="etat" Type="System.String" DbType="NChar(150)" CanBeNull="true" />
+      <Association Name="Exemplaire_Emprunt" Member="Emprunt" ThisKey="idExemplaire" OtherKey="idExemplaire" Type="Emprunt" />
+      <Association Name="Exemplaire_Reservation" Member="Reservation" ThisKey="idExemplaire" OtherKey="idExemplaire" Type="Reservation" />
+      <Association Name="Article_Exemplaire" Member="Article" ThisKey="idArticle" OtherKey="idArticle" Type="Article" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Format" Member="Format">
+    <Type Name="Format">
+      <Column Name="idFormat" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="libelle" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="Format_Article" Member="Article" ThisKey="idFormat" OtherKey="idFormat" Type="Article" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Genre" Member="Genre">
+    <Type Name="Genre">
+      <Column Name="idGenre" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="libelle" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="Genre_Article" Member="Article" ThisKey="idGenre" OtherKey="idGenre" Type="Article" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reservation" Member="Reservation">
+    <Type Name="Reservation">
+      <Column Name="idReservation" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idUsager" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idExemplaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dateReservation" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Exemplaire_Reservation" Member="Exemplaire" ThisKey="idExemplaire" OtherKey="idExemplaire" Type="Exemplaire" IsForeignKey="true" />
+      <Association Name="Usager_Reservation" Member="Usager" ThisKey="idUsager" OtherKey="idUsager" Type="Usager" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tarif" Member="Tarif">
+    <Type Name="Tarif">
+      <Column Name="idTarif" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="tarif" Member="tarif1" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Tarif_Abonnement" Member="Abonnement" ThisKey="idTarif" OtherKey="idTarif" Type="Abonnement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usager" Member="Usager">
+    <Type Name="Usager">
+      <Column Name="idUsager" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="prenom" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="dateNaissance" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="mail" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="motDePasse" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="statut" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Usager_Abonnement" Member="Abonnement" ThisKey="idUsager" OtherKey="idUsager" Type="Abonnement" />
+      <Association Name="Usager_Emprunt" Member="Emprunt" ThisKey="idUsager" OtherKey="idUsager" Type="Emprunt" />
+      <Association Name="Usager_Reservation" Member="Reservation" ThisKey="idUsager" OtherKey="idUsager" Type="Reservation" />
+    </Type>
+  </Table>
+</Database>
