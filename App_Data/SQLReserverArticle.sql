@@ -1,11 +1,13 @@
-﻿CREATE PROCEDURE [ReserverArticle]
+-- Procédure stockée --
+
+CREATE PROCEDURE [ReserverArticle]
  @idArticle int,
  @idUsager int
 AS
 INSERT INTO [dbo].[Reservation] 
 ([Id_Usager], [Id_Exemplaire], [Date_Reservation])
 VALUES 
-(@Usager, 
+(@idUsager, 
 (SELECT TOP 1 X.Id_Exemplaire
 	FROM [dbo].[Exemplaire] as X
 	WHERE X.Id_Article = @idArticle
