@@ -19,6 +19,60 @@
     <div>
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
         <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" runat="server" Text="Mes emprunts" />
+
+        <asp:Panel ID="PL_ACCUEIL" runat="server">
+            <asp:Panel ID="PL_RE" Visible="false" runat="server">
+                <asp:Label ID="LB_IDARTICLE" Visible="false" runat="server" Text=""></asp:Label>
+                <asp:Label ID="LB_NOMARTICLE" runat="server" Text=""></asp:Label>
+                <asp:Label ID="LB_AUTEUR" runat="server" Text=""></asp:Label>
+                <asp:Button ID="BTN_RESERVER" runat="server" Visible="false" Text="Réserver" OnClick="BTN_RESERVER_Click" />
+                <asp:Button ID="BTN_EMPRUNTER" runat="server" Visible="false" Text="Emprunter" OnClick="BTN_EMPRUNTER_Click"/>
+            </asp:Panel>
+            <asp:GridView ID="GV_ACCEUIL" runat="server" AutoGenerateColumns="False" OnRowCommand="GV_ACCUEIL_RowCommand" DataKeyNames="id" DataSourceID="SqlDataSource2">
+                <Columns>
+                    <asp:BoundField DataField="id" HeaderText="id" InsertVisible="False" ReadOnly="True" SortExpression="id" />
+                    <asp:BoundField DataField="Titre de l'article" HeaderText="Titre de l'article" SortExpression="Titre de l'article" />
+                    <asp:BoundField DataField="Format" HeaderText="Format" SortExpression="Format" />
+                    <asp:BoundField DataField="Genre" HeaderText="Genre" SortExpression="Genre" />
+                    <asp:BoundField DataField="Acteurs/Auteurs" HeaderText="Acteurs/Auteurs" SortExpression="Acteurs/Auteurs" />
+                    <asp:BoundField DataField="Exemplaires disponibles" HeaderText="Exemplaires disponibles" ReadOnly="True" SortExpression="Exemplaires disponibles" />
+                    <asp:BoundField DataField="Disponibilité" HeaderText="Disponibilité" ReadOnly="True" SortExpression="Disponibilité" />
+                    <asp:ButtonField ButtonType="Button" Text="Emprunter/Réserver" />
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString1 %>" SelectCommand="SELECT tab.idArticle as id, 
+		tab.nomArticle as 'Titre de l''article', 
+		F.Libelle_Format as 'Format', 
+		G.Libelle_Genre as 'Genre',
+		tab.auteurs as 'Acteurs/Auteurs',
+		COUNT(CASE WHEN tab.Id_Emprunt = 0 THEN 1 ELSE NULL END) as 'Exemplaires disponibles',
+		(CASE 
+			WHEN COUNT(CASE WHEN tab.Id_Emprunt = 0 THEN 1 ELSE NULL END) = 0 
+				THEN 'Réserver' 
+				ELSE 'Emprunter' 
+		END) AS 'Disponibilité'
+FROM 
+	(SELECT A.Id_Article AS idArticle, 
+			A.Nom AS nomArticle, 
+			A.Id_Format AS idFormat, 
+			A.Id_Genre AS idGenre, 
+			A.Auteur AS auteurs, 
+			E.Id_Exemplaire AS idExemplaire, 
+            E.Numero AS numero, 
+			E.Id_Emprunt
+		FROM  Article as A,
+              Exemplaire as E
+		WHERE A.Id_Article = E.Id_Article) AS tab,
+      [Format_article] AS F,
+      [Genre] AS G
+WHERE  idGenre = G.Id_Genre
+		AND idFormat = F.Id_Format
+GROUP BY tab.nomArticle, 
+		tab.idArticle, 
+		F.Libelle_Format, 
+		G.Libelle_Genre,
+		tab.auteurs"></asp:SqlDataSource>
+        </asp:Panel>
        <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
             <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
                 <AlternatingRowStyle BackColor="White" />
