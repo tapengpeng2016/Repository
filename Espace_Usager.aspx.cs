@@ -26,9 +26,10 @@ public partial class Espace_Usager : System.Web.UI.Page
 
         //Emprunt
         PL_EMPRUNT.Visible = false;
-        u.ConsulterEmprunt(u.Id_usager, GV_EMPRUNT);
+       // u.ConsulterEmprunt(u.Id_usager, GV_EMPRUNT);
 
         //Profil Usager
+        //Abonnement
         DataTable infoUsager = u.SelectionInfoUsager(u.Id_usager);
         DataRow[] Usager = infoUsager.Select();
         foreach (DataRow row in Usager)
@@ -36,14 +37,23 @@ public partial class Espace_Usager : System.Web.UI.Page
             TXTB_NOM.Text = row["Nom"].ToString();
             TXTB_PRENOM.Text = row["Prenom"].ToString();
             TXTB_MAIL.Text = row["Identifiant"].ToString();
-            TXTB_MDP.Text = row["mdp"].ToString();
+           // TXTB_MDP.Text = row["mdp"].ToString();
+            LB_DATEABONNEMENT.Text =row["Date_Abonnement"].ToString();
+            LB_TARIF.Text = row["Tarif"].ToString();
+            LB_TYPE.Text = row["Type"].ToString();
+          
         }
-        Label5.Text = TXTB_MDP.Text;
 
+       
+       
     }
     protected void BTN_Emprunt_Click(object sender, EventArgs e)
     {
         PL_EMPRUNT.Visible = true;
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
     }
     protected override void OnInitComplete(EventArgs e)
     {
@@ -66,51 +76,60 @@ public partial class Espace_Usager : System.Web.UI.Page
     }
     protected void BT_VALIDER_Click(object sender, EventArgs e)
     {
-        DataTable dt = (DataTable)Session["Usager"];
-        if (dt == null)
-        {
-            Response.Redirect("Connexion.aspx");
-        }
-        else
-        {
-            Usager u = new Usager();
-            DataTable infoUsager = u.SelectionInfoUsager(u.Id_usager);
-            DataRow[] Usager = infoUsager.Select();
-            foreach (DataRow row in Usager)
+       
+    }
+    protected void BTN_MODIF_MDP_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = true;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = true;
+        PL_ACCUEIL.Visible = false;
+    }
+
+    #region Modifier MDP
+    protected void BTN_VALIDERMDP_Click(object sender, EventArgs e)
+    {
+        
+            DataTable dt = (DataTable)Session["Usager"];
+            Usager u = new Usager();            
+            DataRow[] result = dt.Select();
+            foreach (DataRow row in result)
             {
-                usager = row["Id_Usager"].ToString();         
-                mdp = row["mdp"].ToString();
+                usager = row["Id_Usager"].ToString();
             }
             u.Id_usager = Convert.ToInt32(usager);
-            if (TXTB_ANCIENMDP.Text == mdp)
+
+            DataTable infoUsager = u.SelectionInfoUsager(u.Id_usager);
+            DataRow[] result_info = infoUsager.Select();
+            foreach (DataRow row in result_info)
+            {
+                mdp = row["mdp"].ToString();
+            }
+            
+        if (TXTB_ANCIENMDP.Text.ToString() == mdp)
             {
                 //enregistrement de nouveau mdp
-                u.ModifierMDP(u.Id_usager,TXTB_NEWMDP1.Text.ToString());
-
+                u.ModifierMDP(u.Id_usager, TXTB_NEWMDP1.Text.ToString());
                 //récupéter la nouvelle session
                 DataTable infoUsager1 = u.SelectionInfoUsager(u.Id_usager);
-                DataRow[] Usager1 = infoUsager.Select();
+                DataRow[] Usager1 = infoUsager1.Select();
                 foreach (DataRow row in Usager1)
                 {
                     usager = row["Id_Usager"].ToString();
                     mdp1 = row["mdp"].ToString();
                 }
-                LB_MSG.Text = mdp1;
+            LB_MSG.Text = "Votre mot de passe a bien été modifié";
+           
             }
             else
             {
-                LB_MSG.Text = "Mot de passe incorrecte";
+                LB_MSG.Text = "Mot de passe incorrecte. Veuillez réessayer...";
             }
-        } 
-    }
-    protected void BTN_MODIF_MDP_Click(object sender, EventArgs e)
-    {
-        PL_MDP.Visible = true;
-    }
-    protected void BTN_VALIDERMDP_Click(object sender, EventArgs e)
-    {
 
-    }
+        }
+    #endregion
+
     protected void GV_ACCUEIL_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int idArticle =
@@ -133,6 +152,7 @@ public partial class Espace_Usager : System.Web.UI.Page
             LB_DISPONIBLE.Text = "";
             BTN_RESERVER.Visible = true;
         }
+
     }
     protected void BTN_RESERVER_Click(object sender, EventArgs e)
     {
@@ -214,5 +234,32 @@ WHERE R.Id_Exemplaire = X.Id_Exemplaire AND X.Id_Article = A.Id_Article And R.Id
     protected void LB_FERMER_RESERVATION_Click(object sender, EventArgs e)
     {
         PL_RESERVATION.Visible = false;
+    }
+
+    protected void BTN_ABONNEMNET_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = true;
+        PL_PROFIL.Visible = false;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
+    }
+
+    protected void BTN_PROFIL_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = true;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
+    }
+
+    protected void BTN_ACCUEIL_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = false;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = true;
     }
 }
