@@ -18,7 +18,21 @@
             <asp:Button ID="BTN_DECONNEXION" runat="server" OnClick="BTN_DECONNEXION_Click" Text="DECONNECTER" /> </div>
     <div>
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
+         <asp:Button ID="BTN_ABONNEMENT" OnClick="BTN_Abonnement_Click" runat="server" Text="Mon Abonnement" />
         <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" runat="server" Text="Mes emprunts" />
+        <br />
+        <asp:Panel ID="PL_ABONNEMENT" runat="server" Height="102px">
+            <asp:Label ID="Label9" runat="server" Text="Prénom :"></asp:Label>
+            <asp:TextBox ID="TextBox8" runat="server" style="margin-left: 12px"></asp:TextBox>
+            <br />
+            <asp:Label ID="Label10" runat="server" Text="Nom :"></asp:Label>
+            <asp:TextBox ID="TextBox9" runat="server" style="margin-left: 28px"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Label ID="Label11" runat="server" Text="Votre Abonnement :"></asp:Label>
+            <asp:TextBox ID="TextBox10" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox>
+        </asp:Panel>
        <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
             <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
                 <AlternatingRowStyle BackColor="White" />

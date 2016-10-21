@@ -65,7 +65,7 @@ public partial class Espace_Usager : System.Web.UI.Page
 
     protected void TXTB_NOM_TextChanged(object sender, EventArgs e)
     {
-        this.TXTB_NOM.Text = this.TXTB_NOM.Text.ToUpper();
+        TXTB_NOM.Text = TXTB_NOM.Text.ToUpper();
     }
 
     protected void BT_VALIDER_Click(object sender, EventArgs e)
