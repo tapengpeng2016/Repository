@@ -25,9 +25,9 @@ public class Usager
     
     //private string str = "REPOSITORY";
     private string st;
-    private string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    //private string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     //private string str = "Data Source=DESKTOP-L80VGMJ;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-   // private string str = @"Data Source=DESKTOP-RPHGH20\SQLEXPRESS;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private string str = @"Data Source=DESKTOP-RPHGH20\SQLEXPRESS;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     public static SqlCommand cmd_1;
     public static SqlDataReader dr;
     public static DataTable dt;
@@ -74,40 +74,6 @@ public class Usager
         
     }
     #endregion
-    public bool Reserver(int idArticle)
-    {
-        bool success = false;
-        using(SqlConnection cnx = new SqlConnection(str))
-        {
-            cnx.Open();
-
-            string strSqlCmd_GetExemplaire = @"SELECT X.Id_Exemplaire
-                                                FROM [dbo].[Exemplaire] as X
-                                               WHERE X.Id_Article = @idArticle
-                                                    AND X.Id_Exemplaire NOT IN (SELECT Id_Exemplaire 
-                                                                                   FROM [dbo].[Reservation])";
-            SqlCommand SqlCmd_GetExemplaire = new SqlCommand(strSqlCmd_GetExemplaire, cnx);
-            SqlCmd_GetExemplaire.Parameters.AddWithValue( "@idArticle", idArticle.ToString());
-            int idExemplaire = int.Parse(SqlCmd_GetExemplaire.ExecuteScalar().ToString());
-            if (idExemplaire !=0)
-            {
-                string strSqlCmd_InsertInto = @"INSERT INTO [dbo].[Reservation] 
-                                    ([Id_Usager], [Id_Exemplaire], [Date_Reservation])
-                                    VALUES (@idUsager, @idExemplaire, GETDATE())";
-                SqlCommand SqlCmd_InsertInto = new SqlCommand(strSqlCmd_InsertInto);
-                SqlCmd_InsertInto.Parameters.AddWithValue("@idUsager", this.Id_usager);
-                SqlCmd_InsertInto.Parameters.AddWithValue("@idExemplaire", idExemplaire);
-                SqlCmd_InsertInto.ExecuteNonQuery();
-                success = true;
-            }
-            else
-            {
-                success = false;
-            }
-            cnx.Close();
-        }
-        return success;
-    }
     public string Reserver(int idUsager, int idArticle)
     {
         string info = "ERREUR : Essayer plus tard.";
@@ -146,28 +112,6 @@ public class Usager
             cnx.Close();
         }
         return info;
-    }
-    public bool ReserverArticle(int idUsager, int idArticle)
-    {
-        bool success = true;
-        using(SqlConnection cnx = new SqlConnection(str))
-        {
-            cnx.Open();
-            // ---------------------------------------------------------------------- //
-            SqlCommand cmd = new SqlCommand("ReserverArticle", cnx);
-            cmd.CommandType = CommandType.StoredProcedure;
-            // ---------------------------------------------------------------------- //
-            SqlParameter Id_Usager = new SqlParameter("idUsager", SqlDbType.Int);
-            cmd.Parameters.Add("Id_Usager");
-            // ---------------------------------------------------------------------- //
-            SqlParameter Id_Article = new SqlParameter("idArticle", SqlDbType.Int);
-            cmd.Parameters.Add("Id_Article");
-            // ---------------------------------------------------------------------- //
-            cmd.ExecuteNonQuery();
-            // ---------------------------------------------------------------------- //
-            cnx.Close();
-        }
-        return success;
     }
     #region EnvoyerMSG
     /* public string EnvoyerMSG()

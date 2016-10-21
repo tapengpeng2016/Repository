@@ -78,8 +78,6 @@ public partial class Espace_Usager : System.Web.UI.Page
     {
        
     }
-    
-
     protected void BTN_MODIF_MDP_Click(object sender, EventArgs e)
     {
         PL_ABONNEMENT.Visible = false;
@@ -132,7 +130,6 @@ public partial class Espace_Usager : System.Web.UI.Page
         }
     #endregion
 
-
     protected void GV_ACCUEIL_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int idArticle =
@@ -147,19 +144,20 @@ public partial class Espace_Usager : System.Web.UI.Page
         LB_IDARTICLE.Text = a.id_article.ToString();
         if (a.Disponible())
         {
-
+            LB_DISPONIBLE.Text = "Cette Article est disponible à l'emprunt. RDV à la Médiathèque.";
             BTN_RESERVER.Visible = false;
         }
         else
         {
+            LB_DISPONIBLE.Text = "";
             BTN_RESERVER.Visible = true;
         }
 
     }
     protected void BTN_RESERVER_Click(object sender, EventArgs e)
     {
-        //try
-        //{
+        try
+        {
             DataTable dt = new DataTable();
             dt = (DataTable)Session["Usager"];
             Usager u = new Usager();
@@ -173,17 +171,69 @@ public partial class Espace_Usager : System.Web.UI.Page
                 string info = u.Reserver(idUsager, int.Parse(LB_IDARTICLE.Text));
                 LB_NOMARTICLE.Text += "<br/>" + info + "<br/>";
                 BTN_RESERVER.Visible = false;
+                GV_RESERVATION.DataBind();
+                GV_ACCEUIL.DataBind();
             }
-        //}
-        //catch
-        //{
-        //    LB_NOMARTICLE.Text += "ERREUR" ;
-        //}
+        }
+        catch
+        {
+            LB_NOMARTICLE.Text += "ERREUR";
+        }
     }
-    protected void BTN_EMPRUNTER_Click(object sender, EventArgs e)
+    protected void BTN_RESERVATION_Click(object sender, EventArgs e)
+    {
+        PL_RESERVATION.Visible = true;
+        //récupérer Id_Usager
+        Usager u = new Usager();
+        DataTable dt = (DataTable)Session["Usager"];
+        foreach (DataRow row in dt.Rows)
+        {
+            usager = row["Id_Usager"].ToString();
+        }
+        u.Id_usager = Convert.ToInt32(usager);
+        string sql = @"SELECT* FROM[dbo].[Reservation] as R, [dbo].[Article] as A, [dbo].[Exemplaire] as X
+WHERE R.Id_Exemplaire = X.Id_Exemplaire AND X.Id_Article = A.Id_Article And R.Id_Usager = " + u.Id_usager   +" ;";
+        SqlDataSource3.SelectCommand = sql;
+    }
+
+    protected void GV_ACCEUIL_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
 
+    protected void GV_RESERVATION_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int idReservation = (int)GV_RESERVATION.DataKeys[Convert.ToInt32(e.CommandArgument)].Value;
+        PL_RE.Visible = true;
+        LB_IDARTICLE.Text = idReservation.ToString();
+        Reservation reservation = new Reservation();
+        reservation.id_reservation = idReservation;
+        DataTable dt = new DataTable();
+        dt = reservation.Selection();
+        foreach (DataRow row in dt.Rows)
+        {
+            LB_IDRESERVATION.Text = idReservation.ToString();
+            LB_SELECTIONRESERVATION.Text = "Annuler votre réservation effectuée le " 
+                                                + DateTime.Parse(row["Date_Reservation"].ToString()).ToShortDateString() 
+                                                + ", de l'article '"
+                                                + (string)row["Nom"] + "'(" + (string)row["Auteur"] + ")"
+                                                + ", " + (string)row["Libelle_Format"] + " - " + (string)row["Libelle_Genre"]
+                                                + ", numéro de l'exemplaire : " + ((int)row["Numero"]).ToString();
+        }
+        PL_SUPPRIMER.Visible = true;
+    }
+
+    protected void BTN_SUPPRIMERRESERVATION_Click(object sender, EventArgs e)
+    {
+        Reservation reservation = new Reservation();
+        reservation.SupprimerReservation(int.Parse(LB_IDRESERVATION.Text));
+        PL_SUPPRIMER.Visible = false;
+        GV_RESERVATION.DataBind();
+    }
+
+    protected void LB_FERMER_RESERVATION_Click(object sender, EventArgs e)
+    {
+        PL_RESERVATION.Visible = false;
     }
 
     protected void BTN_ABONNEMNET_Click(object sender, EventArgs e)

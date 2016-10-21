@@ -40,29 +40,29 @@ public partial class Espace_Gestionnaire : System.Web.UI.Page
 
     protected void TXTB_RECHERCHEID_TextChanged(object sender, EventArgs e)
     {
-        
+
         if (String.IsNullOrEmpty(TXTB_RECHERCHEID.Text.Trim()) == false)
         {
-           /*
-            foreach (string str in list)
-            {
-                if (str.StartsWith(TXTB_RECHERCHEID.Text.Trim()))
+            /*
+             foreach (string str in list)
+             {
+                 if (str.StartsWith(TXTB_RECHERCHEID.Text.Trim()))
 
-                {
-                    lb1.Items.Add(str);
-                }
-            }
+                 {
+                     lb1.Items.Add(str);
+                 }
+             }
+         }
+
+         else if (TXTB_RECHERCHEID.Text.Trim() == "")
+         {
+             lb1.Items.Clear();
+
+             foreach (string str in list)
+             {
+                 lb1.Items.Add(str);
+             }
+         }*/
         }
-
-        else if (TXTB_RECHERCHEID.Text.Trim() == "")
-        {
-            lb1.Items.Clear();
-
-            foreach (string str in list)
-            {
-                lb1.Items.Add(str);
-            }
-        }*/
-        
     }
 }

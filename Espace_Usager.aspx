@@ -49,10 +49,11 @@
        
             <div class="menu">
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
-        <asp:Button ID="BTN_ACCUEIL" runat="server" BorderStyle="Outset" BackColor="lightskyblue" onclick="BTN_ACCUEIL_Click" Text="Accueil"  Width="197px" Height="58px" style="margin-left: 0px" />
-        <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" BackColor="lightskyblue" runat="server" Text="Mes emprunts"  Width="197px" Height="58px" />
-        <asp:Button ID="BTN_ABONNEMNET" runat="server" BackColor="lightskyblue" OnClick="BTN_ABONNEMNET_Click" Text="Mon abonnement"  Width="197px" Height="58px" style="margin-top: 0px" />
-        <asp:Button ID="BTN_PROFIL" runat="server" BackColor="lightskyblue" OnClick="BTN_PROFIL_Click" Text="Mon profil" Width="197px" Height="58px" />
+        <asp:Button ID="BTN_ACCUEIL" runat="server" BorderStyle="Outset" BackColor="lightskyblue" onclick="BTN_ACCUEIL_Click" Text="Accueil"  Width="120px" Height="58px" style="margin-left: 0px" />
+        <asp:Button ID="BTN_RESERVATION" runat="server" Text="Mes réservation" BackColor="lightskyblue" onclick="BTN_RESERVATION_Click"  Width="120px" Height="58px" style="margin-left: 0px"/>
+        <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" BackColor="lightskyblue" runat="server" Text="Mes emprunts"  Width="120px" Height="58px" />
+        <asp:Button ID="BTN_ABONNEMNET" runat="server" BackColor="lightskyblue" OnClick="BTN_ABONNEMNET_Click" Text="Mon abonnement"  Width="120px" Height="58px" style="margin-top: 0px" />
+        <asp:Button ID="BTN_PROFIL" runat="server" BackColor="lightskyblue" OnClick="BTN_PROFIL_Click" Text="Mon profil" Width="120px" Height="58px" />
         </div>
          <div class="tous">
             <div>
@@ -64,10 +65,10 @@
                 <asp:Label ID="LB_NOMARTICLE" runat="server" Text=""></asp:Label>
                 <asp:Label ID="LB_AUTEUR" runat="server" Text=""></asp:Label>
                 <asp:Button ID="BTN_RESERVER" runat="server" Visible="false" Text="Réserver" OnClick="BTN_RESERVER_Click" />
+                <br />
+                <asp:Label ID="LB_DISPONIBLE" runat="server" Text=""></asp:Label>
             </asp:Panel>
-            </div>
-           <div class="contenu">
-            <asp:GridView ID="GV_ACCEUIL" runat="server" AutoGenerateColumns="False" OnRowCommand="GV_ACCUEIL_RowCommand" DataKeyNames="id" DataSourceID="SqlDataSource2">
+            <asp:GridView ID="GV_ACCEUIL" runat="server" AutoGenerateColumns="False" OnRowCommand="GV_ACCUEIL_RowCommand" DataKeyNames="id" DataSourceID="SqlDataSource2" OnSelectedIndexChanged="GV_ACCEUIL_SelectedIndexChanged">
                 <Columns>
                     <asp:BoundField DataField="id" HeaderText="id" InsertVisible="False" ReadOnly="True" SortExpression="id" />
                     <asp:BoundField DataField="Titre de l'article" HeaderText="Titre de l'article" SortExpression="Titre de l'article" />
@@ -76,7 +77,7 @@
                     <asp:BoundField DataField="Acteurs/Auteurs" HeaderText="Acteurs/Auteurs" SortExpression="Acteurs/Auteurs" />
                     <asp:BoundField DataField="Exemplaires disponibles" HeaderText="Exemplaires disponibles" ReadOnly="True" SortExpression="Exemplaires disponibles" />
                     <asp:BoundField DataField="Disponibilité" HeaderText="Disponibilité" ReadOnly="True" SortExpression="Disponibilité" />
-                    <asp:ButtonField ButtonType="Button" Text="Emprunter/Réserver" />
+                    <asp:ButtonField ButtonType="Button" Text="Réserver" />
                 </Columns>
             </asp:GridView>
                </div>
@@ -113,11 +114,38 @@ GROUP BY tab.nomArticle,
 		G.Libelle_Genre,
 		tab.auteurs"></asp:SqlDataSource>
         </asp:Panel>
-                </div>
-<div class="panel">
-  <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
-      <div class="contenu">
-            <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" Width="1048px" Height="220px" DataKeyNames="Id_Article" DataSourceID="SqlDataSource3">
+        <asp:Panel ID="PL_RESERVATION" Visible="false" runat="server">
+            <h1>Mes réservations <asp:LinkButton ID="LB_FERMER_RESERVATION" runat="server" OnClick="LB_FERMER_RESERVATION_Click">Fermer</asp:LinkButton></h1>
+            <asp:Panel ID="PL_SUPPRIMER" Visible="false" runat="server">
+                <asp:Label ID="LB_IDRESERVATION" Visible="false" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="LB_SELECTIONRESERVATION" runat="server" Text="Label"></asp:Label>
+                <br />
+                <p>Confirmer l'annulation de votre réservation : <asp:Button ID="BTN_SUPPRIMERRESERVATION" runat="server" Text="Annuler ma réservation" OnClick="BTN_SUPPRIMERRESERVATION_Click" /></p>
+            </asp:Panel>
+            <asp:GridView ID="GV_RESERVATION" runat="server" AutoGenerateColumns="False" DataKeyNames="Id_Reservation,Id_Article,Id_Exemplaire1" DataSourceID="SqlDataSource3" OnRowCommand="GV_RESERVATION_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="Id_Reservation" HeaderText="Id_Reservation" InsertVisible="False" ReadOnly="True" SortExpression="Id_Reservation" Visible="False" />
+                    <asp:BoundField DataField="Id_Usager" HeaderText="Id_Usager" SortExpression="Id_Usager" Visible="False" />
+                    <asp:BoundField DataField="Id_Exemplaire" HeaderText="Id_Exemplaire" SortExpression="Id_Exemplaire" Visible="False" />
+                    <asp:BoundField DataField="Date_Reservation" HeaderText="Date_Reservation" SortExpression="Date_Reservation" />
+                    <asp:BoundField DataField="Id_Article" HeaderText="Id_Article" InsertVisible="False" ReadOnly="True" SortExpression="Id_Article" Visible="False" />
+                    <asp:BoundField DataField="Nom" HeaderText="Nom" SortExpression="Nom" />
+                    <asp:BoundField DataField="Id_Format" HeaderText="Id_Format" SortExpression="Id_Format" Visible="False" />
+                    <asp:BoundField DataField="Id_Genre" HeaderText="Id_Genre" SortExpression="Id_Genre" Visible="False" />
+                    <asp:BoundField DataField="Auteur" HeaderText="Auteur" SortExpression="Auteur" />
+                    <asp:BoundField DataField="Id_Exemplaire1" HeaderText="Id_Exemplaire1" InsertVisible="False" ReadOnly="True" SortExpression="Id_Exemplaire1" Visible="False" />
+                    <asp:BoundField DataField="Numero" HeaderText="Numero" SortExpression="Numero" />
+                    <asp:BoundField DataField="Id_Article1" HeaderText="Id_Article1" SortExpression="Id_Article1" Visible="False" />
+                    <asp:BoundField DataField="Id_Emprunt" HeaderText="Id_Emprunt" SortExpression="Id_Emprunt" Visible="False" />
+                    <asp:ButtonField ButtonType="Button" Text="Annuler la réservation" />
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString1 %>" SelectCommand="SELECT * FROM [dbo].[Reservation] as R, [dbo].[Article] as A, [dbo].[Exemplaire] as X
+WHERE R.Id_Exemplaire = X.Id_Exemplaire AND X.Id_Article = A.Id_Article And R.Id_Usager = 3;"></asp:SqlDataSource>
+        </asp:Panel>
+       <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
+            <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
+                <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:BoundField DataField="Numero" HeaderText="Numero" SortExpression="Numero" />
                     <asp:BoundField DataField="Nom" HeaderText="Nom d'article" SortExpression="Nom" />
@@ -128,7 +156,7 @@ GROUP BY tab.nomArticle,
                     <asp:BoundField DataField="DateRetourEstimee" HeaderText="Retour Avant" SortExpression="DateRetourEstimee" />
                 </Columns>
             </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString %>" SelectCommand="SELECT Article.Id_Article, Article.Nom, Article.Auteur, Format_article.Libelle_Format, Genre.Libelle_Genre, Emprunt.DateRetourEstimee, Emprunt.DateEmprunt, Exemplaire.Numero FROM Article INNER JOIN Format_article ON Article.Id_Format = Format_article.Id_Format INNER JOIN Genre ON Article.Id_Genre = Genre.Id_Genre INNER JOIN Exemplaire ON Article.Id_Article = Exemplaire.Id_Article INNER JOIN Emprunt ON Exemplaire.Id_Exemplaire = Emprunt.Id_Exemplaire"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString %>" SelectCommand="SELECT Article.Id_Article, Article.Nom, Article.Auteur, Format_article.Libelle_Format, Genre.Libelle_Genre, Emprunt.DateRetourEstimee, Emprunt.DateEmprunt, Exemplaire.Numero FROM Article INNER JOIN Format_article ON Article.Id_Format = Format_article.Id_Format INNER JOIN Genre ON Article.Id_Genre = Genre.Id_Genre INNER JOIN Exemplaire ON Article.Id_Article = Exemplaire.Id_Article INNER JOIN Emprunt ON Exemplaire.Id_Exemplaire = Emprunt.Id_Exemplaire"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
            </div>
      </asp:Panel>
@@ -306,7 +334,6 @@ GROUP BY tab.nomArticle,
                  </div>
         </asp:Panel> 
             </div>  
-    </div>
             </div>
     </form>
 </body>
