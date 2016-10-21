@@ -108,39 +108,44 @@ public class Usager
         }
         return success;
     }
-    public bool Reserver(int idUsager, int idArticle)
+    public string Reserver(int idUsager, int idArticle)
     {
-        bool success = false;
+        string info = "ERREUR : Essayer plus tard.";
         using (SqlConnection cnx = new SqlConnection(str))
         {
             cnx.Open();
 
-            string strSqlCmd_GetExemplaire = @"SELECT X.Id_Exemplaire
+            string strSqlCmd_GetExemplaire = @"SELECT (CASE 
+			                                            WHEN X.Id_Exemplaire IN 
+                                                                   (SELECT R.Id_Exemplaire FROM [dbo].[Reservation] as R, [dbo].[Exemplaire] as E 
+                                                                        WHERE E.[Id_Article] = @idArticle AND R.[Id_Exemplaire] = E.[Id_Exemplaire] AND R.[Id_Usager] = @idUsager)
+                                                                THEN 0
+				                                        ELSE X.Id_Exemplaire END) as IdExemplaire
                                                 FROM [dbo].[Exemplaire] as X
-                                               WHERE X.Id_Article = @idArticle
-                                                    AND X.Id_Exemplaire NOT IN (SELECT Id_Exemplaire 
-                                                                                   FROM [dbo].[Reservation])";
+                                                WHERE X.Id_Article = @idArticle;";
+            // AND X.Id_Exemplaire NOT IN (SELECT Id_Exemplaire FROM [dbo].[Reservation])";
             SqlCommand SqlCmd_GetExemplaire = new SqlCommand(strSqlCmd_GetExemplaire, cnx);
             SqlCmd_GetExemplaire.Parameters.AddWithValue("@idArticle", idArticle.ToString());
+            SqlCmd_GetExemplaire.Parameters.AddWithValue("@idUsager", idUsager.ToString());
             int idExemplaire = int.Parse(SqlCmd_GetExemplaire.ExecuteScalar().ToString());
             if (idExemplaire != 0)
             {
                 string strSqlCmd_InsertInto = @"INSERT INTO [dbo].[Reservation] 
                                     ([Id_Usager], [Id_Exemplaire], [Date_Reservation])
                                     VALUES (@idUsager, @idExemplaire, GETDATE())";
-                SqlCommand SqlCmd_InsertInto = new SqlCommand(strSqlCmd_InsertInto);
+                SqlCommand SqlCmd_InsertInto = new SqlCommand(strSqlCmd_InsertInto, cnx);
                 SqlCmd_InsertInto.Parameters.AddWithValue("@idUsager", idUsager.ToString());
                 SqlCmd_InsertInto.Parameters.AddWithValue("@idExemplaire", idExemplaire.ToString());
                 SqlCmd_InsertInto.ExecuteNonQuery();
-                success = true;
+                info = "Votre réservation a été enregistrée.";
             }
             else
             {
-                success = false;
+                info = "Cette article est déjà présent dans vos réservations.";
             }
             cnx.Close();
         }
-        return success;
+        return info;
     }
     public bool ReserverArticle(int idUsager, int idArticle)
     {

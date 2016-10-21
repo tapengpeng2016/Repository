@@ -144,22 +144,22 @@ public partial class Espace_Usager : System.Web.UI.Page
         a.Selection();
         LB_NOMARTICLE.Text = a.nom;
         LB_AUTEUR.Text = a.auteur;
+        LB_IDARTICLE.Text = a.id_article.ToString();
         if (a.Disponible())
         {
+
             BTN_RESERVER.Visible = false;
-            BTN_EMPRUNTER.Visible = true;
         }
         else
         {
-            BTN_EMPRUNTER.Visible = false;
             BTN_RESERVER.Visible = true;
         }
 
     }
     protected void BTN_RESERVER_Click(object sender, EventArgs e)
     {
-        try
-        {
+        //try
+        //{
             DataTable dt = new DataTable();
             dt = (DataTable)Session["Usager"];
             Usager u = new Usager();
@@ -167,14 +167,18 @@ public partial class Espace_Usager : System.Web.UI.Page
             foreach (DataRow row in dt.Rows)
             {
                 idUsager = int.Parse(row["Id_Usager"].ToString());
-                LB_NOMARTICLE.Text += idUsager.ToString();
+                //LB_NOMARTICLE.Text += "<br/> Id_usager : " + idUsager.ToString() + " ---- IdArticle :" + int.Parse(LB_IDARTICLE.Text) + "<br/>";
             }
-            if (idUsager != 0) { u.ReserverArticle(idUsager, int.Parse(LB_IDARTICLE.Text)); LB_NOMARTICLE.Text += "ERREUR"; };
-        }
-        catch
-        {
-            //LB_NOMARTICLE.Text += "ERREUR" ;
-        }
+            if (idUsager != 0) {
+                string info = u.Reserver(idUsager, int.Parse(LB_IDARTICLE.Text));
+                LB_NOMARTICLE.Text += "<br/>" + info + "<br/>";
+                BTN_RESERVER.Visible = false;
+            }
+        //}
+        //catch
+        //{
+        //    LB_NOMARTICLE.Text += "ERREUR" ;
+        //}
     }
     protected void BTN_EMPRUNTER_Click(object sender, EventArgs e)
     {

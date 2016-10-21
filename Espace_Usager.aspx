@@ -64,7 +64,6 @@
                 <asp:Label ID="LB_NOMARTICLE" runat="server" Text=""></asp:Label>
                 <asp:Label ID="LB_AUTEUR" runat="server" Text=""></asp:Label>
                 <asp:Button ID="BTN_RESERVER" runat="server" Visible="false" Text="Réserver" OnClick="BTN_RESERVER_Click" />
-                <asp:Button ID="BTN_EMPRUNTER" runat="server" Visible="false" Text="Emprunter" OnClick="BTN_EMPRUNTER_Click"/>
             </asp:Panel>
             </div>
            <div class="contenu">
