@@ -7,24 +7,58 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <style type="text/css">
+        body{
+              background-color: lightblue;
+        }
         .table {
             margin-left: 0px;
         }
+        .panel{
+           
+            margin-left:25%;
+           
+        }
+        .menu{
+            color:mediumblue;
+             margin-top:100px;
+             margin-left:25%;
+            
+        }
+        #DECONNEXION{         
+            text-align:right;
+            margin-right:50px;
+            margin-top:50px;
+        }
+        .contenu{
+            
+            position:center;
+        }
+        .tous{
+            width:100%;
+            height:700px;
+            background-color: lightblue;
+           
+        }
+
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div id="DECONNEXION">
             <asp:Button ID="BTN_DECONNEXION" runat="server" OnClick="BTN_DECONNEXION_Click" Text="DECONNECTER" /> </div>
-    <div>
+       
+            <div class="menu">
         <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
-        <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" runat="server" Text="Mes emprunts" />
-<<<<<<< HEAD
-        <asp:Button ID="BTN_ABONNEMNET" runat="server" OnClick="BTN_ABONNEMNET_Click" Text="Mon abonnement" />
-        <asp:Button ID="BTN_PROFIL" runat="server" OnClick="BTN_PROFIL_Click" Text="Mon profil" />
-=======
-
+        <asp:Button ID="BTN_ACCUEIL" runat="server" BorderStyle="Outset" BackColor="lightskyblue" onclick="BTN_ACCUEIL_Click" Text="Accueil"  Width="197px" Height="58px" style="margin-left: 0px" />
+        <asp:Button ID="BTN_EMPRUNT" OnClick="BTN_Emprunt_Click" BackColor="lightskyblue" runat="server" Text="Mes emprunts"  Width="197px" Height="58px" />
+        <asp:Button ID="BTN_ABONNEMNET" runat="server" BackColor="lightskyblue" OnClick="BTN_ABONNEMNET_Click" Text="Mon abonnement"  Width="197px" Height="58px" style="margin-top: 0px" />
+        <asp:Button ID="BTN_PROFIL" runat="server" BackColor="lightskyblue" OnClick="BTN_PROFIL_Click" Text="Mon profil" Width="197px" Height="58px" />
+        </div>
+         <div class="tous">
+            <div>
+         <div class="panel">
         <asp:Panel ID="PL_ACCUEIL" runat="server">
+            <div class="panel_button">
             <asp:Panel ID="PL_RE" Visible="false" runat="server">
                 <asp:Label ID="LB_IDARTICLE" Visible="false" runat="server" Text=""></asp:Label>
                 <asp:Label ID="LB_NOMARTICLE" runat="server" Text=""></asp:Label>
@@ -32,6 +66,8 @@
                 <asp:Button ID="BTN_RESERVER" runat="server" Visible="false" Text="Réserver" OnClick="BTN_RESERVER_Click" />
                 <asp:Button ID="BTN_EMPRUNTER" runat="server" Visible="false" Text="Emprunter" OnClick="BTN_EMPRUNTER_Click"/>
             </asp:Panel>
+            </div>
+           <div class="contenu">
             <asp:GridView ID="GV_ACCEUIL" runat="server" AutoGenerateColumns="False" OnRowCommand="GV_ACCUEIL_RowCommand" DataKeyNames="id" DataSourceID="SqlDataSource2">
                 <Columns>
                     <asp:BoundField DataField="id" HeaderText="id" InsertVisible="False" ReadOnly="True" SortExpression="id" />
@@ -44,6 +80,7 @@
                     <asp:ButtonField ButtonType="Button" Text="Emprunter/Réserver" />
                 </Columns>
             </asp:GridView>
+               </div>
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString1 %>" SelectCommand="SELECT tab.idArticle as id, 
 		tab.nomArticle as 'Titre de l''article', 
 		F.Libelle_Format as 'Format', 
@@ -77,82 +114,29 @@ GROUP BY tab.nomArticle,
 		G.Libelle_Genre,
 		tab.auteurs"></asp:SqlDataSource>
         </asp:Panel>
->>>>>>> origin/master
-       <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
-            <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="777px" Height="220px">
-                <AlternatingRowStyle BackColor="White" />
+                </div>
+<div class="panel">
+  <asp:Panel ID="PL_EMPRUNT" runat="server" Width="102%" Height="358px">
+      <div class="contenu">
+            <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False" Width="1048px" Height="220px" DataKeyNames="Id_Article" DataSourceID="SqlDataSource3">
                 <Columns>
-                    <asp:TemplateField HeaderText="Numéro ">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Numero") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Numero") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Article">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Nom") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label3" runat="server" Text='<%# Bind("Nom") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Auteur">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Auteur") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("Auteur") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Format">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Libelle_Format") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label4" runat="server" Text='<%# Bind("Libelle_Format") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Genre">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Libelle_Genre") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label5" runat="server" Text='<%# Bind("Libelle_Genre") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Date Emprunt">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox6" runat="server"  Text='<%# Bind("DateEmprunt") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label6" runat="server"  Text='<%# Bind("DateEmprunt") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Retour Avant">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox7" runat="server"   Text='<%# Bind("DateRetourEstimee") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label7" runat="server"  Text='<%# Bind("DateRetourEstimee") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:BoundField DataField="Numero" HeaderText="Numero" SortExpression="Numero" />
+                    <asp:BoundField DataField="Nom" HeaderText="Nom d'article" SortExpression="Nom" />
+                    <asp:BoundField DataField="Auteur" HeaderText="Auteur" SortExpression="Auteur" />
+                    <asp:BoundField DataField="Libelle_Format" HeaderText="Format" SortExpression="Libelle_Format" />
+                    <asp:BoundField DataField="Libelle_Genre" HeaderText="Genre" SortExpression="Libelle_Genre" />
+                    <asp:BoundField DataField="DateEmprunt" HeaderText="Date Emprunt" SortExpression="DateEmprunt" />
+                    <asp:BoundField DataField="DateRetourEstimee" HeaderText="Retour Avant" SortExpression="DateRetourEstimee" />
                 </Columns>
-                <FooterStyle BackColor="#CCCC99" />
-                <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-                <RowStyle BackColor="#F7F7DE" />
-                <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#FBFBF2" />
-                <SortedAscendingHeaderStyle BackColor="#848384" />
-                <SortedDescendingCellStyle BackColor="#EAEAD3" />
-                <SortedDescendingHeaderStyle BackColor="#575357" />
             </asp:GridView>
-
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:InscriptionConnectionString %>" SelectCommand="SELECT Article.Id_Article, Article.Nom, Article.Auteur, Format_article.Libelle_Format, Genre.Libelle_Genre, Emprunt.DateRetourEstimee, Emprunt.DateEmprunt, Exemplaire.Numero FROM Article INNER JOIN Format_article ON Article.Id_Format = Format_article.Id_Format INNER JOIN Genre ON Article.Id_Genre = Genre.Id_Genre INNER JOIN Exemplaire ON Article.Id_Article = Exemplaire.Id_Article INNER JOIN Emprunt ON Exemplaire.Id_Exemplaire = Emprunt.Id_Exemplaire"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+           </div>
      </asp:Panel>
+    </div>
+    <div class="panel">
      <asp:Panel ID="PL_PROFIL" Visible="false" runat="server">
+          <div class="contenu">
              <asp:Table ID="T_PROFIL" runat="server" Width="905px" CssClass="table">
         
             <asp:TableRow>
@@ -213,9 +197,13 @@ GROUP BY tab.nomArticle,
                 </asp:TableCell>
         </asp:TableRow>
         </asp:Table>
+              </div>
             <asp:Label ID="LB_PROFIL" runat="server" Text=""></asp:Label>
     </asp:Panel>
+        </div>
+    <div class="panel">
     <asp:Panel ID="PL_MDP" visible="false" runat="server">
+         <div class="contenu">
        <asp:Table ID="T_MDP" runat="server" Width="722px" Height="149px">                
         <asp:TableRow>
                 <asp:TableCell>
@@ -268,8 +256,12 @@ GROUP BY tab.nomArticle,
         </asp:TableRow>
             </asp:Table>
                 <asp:Label ID="LB_MSG" runat="server" Text=""></asp:Label> 
+             </div>
         </asp:Panel>
-        <asp:Panel ID="PL_ABONNEMENT"  runat="server" Width="328px">
+        </div>
+        <div class="panel">
+        <asp:Panel ID="PL_ABONNEMENT"  Visible="false" runat="server" Width="328px">
+             <div class="contenu">
             <asp:Table ID="T_ABONNEMENT" runat="server" Width="568px">
                 <asp:TableRow runat="server">
                     <asp:TableCell runat="server">
@@ -312,8 +304,11 @@ GROUP BY tab.nomArticle,
                 </asp:TableRow>
 
             </asp:Table>
-        </asp:Panel>   
+                 </div>
+        </asp:Panel> 
+            </div>  
     </div>
+            </div>
     </form>
 </body>
 </html>

@@ -26,7 +26,7 @@ public partial class Espace_Usager : System.Web.UI.Page
 
         //Emprunt
         PL_EMPRUNT.Visible = false;
-        u.ConsulterEmprunt(u.Id_usager, GV_EMPRUNT);
+       // u.ConsulterEmprunt(u.Id_usager, GV_EMPRUNT);
 
         //Profil Usager
         //Abonnement
@@ -53,6 +53,7 @@ public partial class Espace_Usager : System.Web.UI.Page
         PL_ABONNEMENT.Visible = false;
         PL_PROFIL.Visible = false;
         PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
     }
     protected override void OnInitComplete(EventArgs e)
     {
@@ -85,6 +86,7 @@ public partial class Espace_Usager : System.Web.UI.Page
         PL_PROFIL.Visible = true;
         PL_EMPRUNT.Visible = false;
         PL_MDP.Visible = true;
+        PL_ACCUEIL.Visible = false;
     }
 
     #region Modifier MDP
@@ -126,35 +128,11 @@ public partial class Espace_Usager : System.Web.UI.Page
             {
                 LB_MSG.Text = "Mot de passe incorrecte. Veuillez réessayer...";
             }
-<<<<<<< HEAD
+
         }
     #endregion
 
-    protected void BTN_ABONNEMNET_Click(object sender, EventArgs e)
-=======
-        } 
-    }
-    protected void BTN_MODIF_MDP_Click(object sender, EventArgs e)
->>>>>>> origin/master
-    {
-        PL_ABONNEMENT.Visible = true;
-        PL_PROFIL.Visible = false;
-        PL_EMPRUNT.Visible = false;
-        PL_MDP.Visible = false;
-       
-    }
-<<<<<<< HEAD
 
-    protected void BTN_PROFIL_Click(object sender, EventArgs e)
-=======
-    protected void BTN_VALIDERMDP_Click(object sender, EventArgs e)
->>>>>>> origin/master
-    {
-        PL_ABONNEMENT.Visible = false;
-        PL_PROFIL.Visible = true;
-        PL_EMPRUNT.Visible = false;
-        PL_MDP.Visible = false;
-    }
     protected void GV_ACCUEIL_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int idArticle =
@@ -176,6 +154,7 @@ public partial class Espace_Usager : System.Web.UI.Page
             BTN_EMPRUNTER.Visible = false;
             BTN_RESERVER.Visible = true;
         }
+
     }
     protected void BTN_RESERVER_Click(object sender, EventArgs e)
     {
@@ -200,5 +179,33 @@ public partial class Espace_Usager : System.Web.UI.Page
     protected void BTN_EMPRUNTER_Click(object sender, EventArgs e)
     {
 
+
+    }
+
+    protected void BTN_ABONNEMNET_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = true;
+        PL_PROFIL.Visible = false;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
+    }
+
+    protected void BTN_PROFIL_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = true;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = false;
+    }
+
+    protected void BTN_ACCUEIL_Click(object sender, EventArgs e)
+    {
+        PL_ABONNEMENT.Visible = false;
+        PL_PROFIL.Visible = false;
+        PL_EMPRUNT.Visible = false;
+        PL_MDP.Visible = false;
+        PL_ACCUEIL.Visible = true;
     }
 }

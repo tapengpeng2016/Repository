@@ -25,9 +25,9 @@ public class Usager
     
     //private string str = "REPOSITORY";
     private string st;
-    //private string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private string str = "Data Source=DESKTOP-10VV38I;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     //private string str = "Data Source=DESKTOP-L80VGMJ;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-    private string str = @"Data Source=DESKTOP-RPHGH20\SQLEXPRESS;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+   // private string str = @"Data Source=DESKTOP-RPHGH20\SQLEXPRESS;Initial Catalog=Inscription;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     public static SqlCommand cmd_1;
     public static SqlDataReader dr;
     public static DataTable dt;
@@ -407,7 +407,7 @@ public class Usager
     }
     #endregion
     #region ConsulterEmprunt
-  
+  /*
     public void ConsulterEmprunt(int id,GridView g)
     {
       string req = @"SELECT * FROM[Article],[Format_article],[Genre],[Exemplaire],[Emprunt]
@@ -424,6 +424,7 @@ public class Usager
         g.DataBind();
         cnx.Close();
     }
+    */
     #endregion
     #region Emprunter pour usagers
     public void Emprunter()

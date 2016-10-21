@@ -12,7 +12,8 @@
      
         <asp:Label ID="LB_MSG" runat="server" Text=""></asp:Label>
         <asp:Button ID="BTN_EMPRUNT" runat="server" Text="Emprunter" />
-
+        <asp:Label ID="Label1" runat="server" Text="Recherche par ID:"></asp:Label>
+        <asp:TextBox ID="TXTB_RECHERCHEID" OnTextChanged="TXTB_RECHERCHEID_TextChanged" runat="server"></asp:TextBox>
         <div>
             <asp:Label ID="LB_IDUSAGER" runat="server" Text="Id usager:"></asp:Label>
             <asp:DropDownList ID="DDL_ID" runat="server">
@@ -21,42 +22,9 @@
         </div>
     <div>
         <asp:Panel ID="PL_EMPRUNT" runat="server">
-            <asp:Table ID="T_EMPRUNT" runat="server">
-
-            </asp:Table>
-            <asp:GridView ID="GV_EMPRUNT" runat="server" AutoGenerateColumns="False">
-
-                <Columns>
-                    <asp:TemplateField HeaderText="Numero">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Numero") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Numero") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Article">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Nom") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("Nom") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField />
-                    <asp:BoundField />
-                    <asp:BoundField />
-                    <asp:TemplateField HeaderText="Disponibilité">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Disponibilité") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label3" runat="server" Text='<%# Bind("Disponibilité") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-
-            </asp:GridView>
+            <asp:GridView ID="GV_USAGERS" Visible="false" runat="server"></asp:GridView>
+            <asp:GridView ID="GV_EMPRUNT" runat="server" DataSourceID="SqlDataSource1"></asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
         </asp:Panel>
     </div>
     </form>

@@ -11,48 +11,13 @@ public partial class Espace_Gestionnaire : System.Web.UI.Page
     string usager;
     string acces;
     int int_acces;
+    List<string> list;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Usager u=new Usager();
-        /*u.RemplirGrid(@"SELECT tab.idArticle as id, 
+        Gestionnaire g = new Gestionnaire();
+        g.TousUsager(GV_USAGERS);
+        
 
-        tab.nomArticle as 'Titre de l''article',
-        F.Libelle_Format as 'Format',
-        G.Libelle_Genre as 'Genre',
-        tab.auteurs as 'Acteurs/Auteurs',
-        COUNT(CASE WHEN tab.Id_Emprunt = 0 THEN 1 ELSE NULL END) as 'Exemplaires disponibles',
-        (CASE
-            WHEN COUNT(CASE WHEN tab.Id_Emprunt = 0 THEN 1 ELSE NULL END) = 0
-                THEN 'Réserver'
-
-                ELSE 'Emprunter'
-
-        END) AS 'Disponibilité'
-FROM
-    (SELECT A.Id_Article AS idArticle,
-            A.Nom AS nomArticle,
-            A.Id_Format AS idFormat,
-            A.Id_Genre AS idGenre,
-            A.Auteur AS auteurs,
-            E.Id_Exemplaire AS idExemplaire,
-            E.Numero AS numero,
-            E.Id_Emprunt
-
-        FROM  Article as A,
-              Exemplaire as E
-
-        WHERE A.Id_Article = E.Id_Article) AS tab,
-      [Format_article] AS F,
-      [Genre] AS G
-WHERE idGenre = G.Id_Genre
-
-        AND idFormat = F.Id_Format
-GROUP BY tab.nomArticle, 
-		tab.idArticle, 
-		F.Libelle_Format, 
-		G.Libelle_Genre,
-		tab.auteurs", GV_EMPRUNT);
-        */
     }
 
     protected override void OnInitComplete(EventArgs e)
@@ -70,5 +35,34 @@ GROUP BY tab.nomArticle,
         {
             Response.Redirect("Connexion.aspx");
         }
+    }
+
+
+    protected void TXTB_RECHERCHEID_TextChanged(object sender, EventArgs e)
+    {
+        
+        if (String.IsNullOrEmpty(TXTB_RECHERCHEID.Text.Trim()) == false)
+        {
+           /*
+            foreach (string str in list)
+            {
+                if (str.StartsWith(TXTB_RECHERCHEID.Text.Trim()))
+
+                {
+                    lb1.Items.Add(str);
+                }
+            }
+        }
+
+        else if (TXTB_RECHERCHEID.Text.Trim() == "")
+        {
+            lb1.Items.Clear();
+
+            foreach (string str in list)
+            {
+                lb1.Items.Add(str);
+            }
+        }*/
+        
     }
 }
